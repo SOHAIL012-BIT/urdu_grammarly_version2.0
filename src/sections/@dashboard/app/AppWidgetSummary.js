@@ -25,12 +25,12 @@ const StyledIcon = styled('div')(({ theme }) => ({
 AppWidgetSummary.propTypes = {
   color: PropTypes.string,
   icon: PropTypes.string,
+  subtitle: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
   sx: PropTypes.object,
 };
 
-export default function AppWidgetSummary({ title, total, icon, color = 'primary', sx, ...other }) {
+export default function AppWidgetSummary({ subtitle, urduTrans, title, icon, color = 'primary', sx, ...other }) {
   return (
     <Card
       sx={{
@@ -42,6 +42,10 @@ export default function AppWidgetSummary({ title, total, icon, color = 'primary'
         ...sx,
       }}
       {...other}
+
+      style={{
+        margin: "10px 10px 10px 10px ",
+      }}
     >
       <StyledIcon
         sx={{
@@ -56,10 +60,25 @@ export default function AppWidgetSummary({ title, total, icon, color = 'primary'
         <Iconify icon={icon} width={24} height={24} />
       </StyledIcon>
 
-      <Typography variant="h3">{fShortenNumber(total)}</Typography>
-
-      <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
+      {/* <Typography variant="h3">{fShortenNumber(title)}</Typography> */}
+      <Typography variant="h3" sx={{ opacity: 1 }}>
         {title}
+      </Typography>
+
+
+      <Typography variant="subtitle2" sx={{ opacity: 1 }} align="justify" padding={2} style={{ fontSize:"12pt"}}>
+        {subtitle}
+      </Typography>
+
+      <Typography variant="subtitle2" sx={{ opacity: 0.92 }} gutterBottom="true" align="justify" padding={2}
+        style={{
+          direction: 'rtl', // Set text direction to right-to-left
+          textAlign: 'right', // Set text alignment to right
+          fontFamily: 'Nastaliq', // Use a Urdu-specific font for better display
+          fontSize:"12pt"
+        }}
+        >
+        {urduTrans}
       </Typography>
     </Card>
   );

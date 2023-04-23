@@ -9,6 +9,8 @@ import LoginPage from './pages/LoginPage';
 import Page404 from './pages/Page404';
 import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/DashboardAppPage';
+import WordsSuggestion from './pages/WordsSuggestion';
+import GrammarChecking from './pages/GrammarChecking';
 
 // ----------------------------------------------------------------------
 
@@ -23,6 +25,9 @@ export default function Router() {
         { path: 'user', element: <UserPage /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },
+        { path: 'WordsSuggestion', element: <WordsSuggestion /> },
+        { path: 'GrammarChecking', element: <GrammarChecking /> },
+
       ],
     },
     {

@@ -13,14 +13,16 @@ AppConversionRates.propTypes = {
   title: PropTypes.string,
   subheader: PropTypes.string,
   chartData: PropTypes.array.isRequired,
+  chartColors: PropTypes.arrayOf(PropTypes.string),
 };
 
-export default function AppConversionRates({ title, subheader, chartData, ...other }) {
+export default function AppConversionRates({ title, subheader, chartColors, chartData, ...other }) {
   const chartLabels = chartData.map((i) => i.label);
 
   const chartSeries = chartData.map((i) => i.value);
 
   const chartOptions = useChart({
+    colors: chartColors,
     tooltip: {
       marker: { show: false },
       y: {
@@ -43,7 +45,7 @@ export default function AppConversionRates({ title, subheader, chartData, ...oth
       <CardHeader title={title} subheader={subheader} />
 
       <Box sx={{ mx: 3 }} dir="ltr">
-        <ReactApexChart type="bar" series={[{ data: chartSeries }]} options={chartOptions} height={364} />
+        <ReactApexChart type="bar" series={[{ data: chartSeries }]} options={chartOptions} height={150} />
       </Box>
     </Card>
   );

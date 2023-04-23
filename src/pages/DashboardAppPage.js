@@ -2,7 +2,10 @@ import { Helmet } from 'react-helmet-async';
 import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Grid, Container, Typography } from '@mui/material';
+import { Grid, Container, Typography, TextField } from '@mui/material';
+
+
+
 // components
 import Iconify from '../components/iconify';
 // sections
@@ -26,7 +29,7 @@ export default function DashboardAppPage() {
   return (
     <>
       <Helmet>
-        <title> Dashboard | Minimal UI </title>
+        <title> Dashboard | Urdu Grammarly</title>
       </Helmet>
 
       <Container maxWidth="xl">
@@ -35,23 +38,43 @@ export default function DashboardAppPage() {
         </Typography>
 
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Weekly Sales" total={714000} icon={'ant-design:android-filled'} />
+          <Grid item xs={12} sm={12} md={6}>
+            <AppWidgetSummary title="Grammar Check"
+              color="info"
+              subtitle="Eliminate grammar errors with Urdu Grammarly's AI-powered Grammar Check for flawless Urdu writing. Elevate your writing and impress your audience with impeccable grammar."
+              urduTrans=".اعلٰی اردو کیلئے یو. آر. دو گرامرلی کی طاقتور ای آئی پاورڈ گرامر چیک کے ساتھ گرامر کی خامیاں ختم کریں. اپنے لکھائی کو اونچا اٹھائیں اور اپنے حضور کو بےعیب گرامر کے ساتھ پرجوش کریں"
+            //  icon={'ant-design:android-filled'} 
+            icon={'ant-design:check-square-filled'}
+
+/>
           </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="New Users" total={1352831} color="info" icon={'ant-design:apple-filled'} />
+          <Grid item xs={12} sm={12} md={6}>
+            <AppWidgetSummary title="Sentence and Word Suggestion"
+              subtitle={"Unlock your writing potential with our AI-powered Sentence and Word Suggestion tool. Effortlessly improve your writing with tailored suggestions and say goodbye to writer's block."}
+              color="info"
+              urduTrans=".ہمارے اے آئی پاورڈ جملوں اور الفاظ کی تجویز کرنے والے ٹول کے ساتھ اپنی لکھائی کی صلاحیت کو کھولیں. اپنی لکھائی کو آسانی سے بہتر بنائیں اور لکھاریز کے بلاک کو وداع کہیں"
+              // icon={'ant-design:apple-filled'} 
+              icon={'ant-design:bulb-filled'}              />
           </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Item Orders" total={1723315} color="warning" icon={'ant-design:windows-filled'} />
+          <Grid item xs={12} sm={12} md={6}>
+            <AppWidgetSummary title="Words and Sentence Correction"
+              subtitle="Bye to spelling mistakes with our Correction Checker! Advanced technology for error-free text, elevating your writing game."
+               urduTrans="اپنے اشتباہیں درست کرنے کے ساتھ خداحافظ کہیں ہمارے اصلاح چیکر کے ساتھ! انتہائی ترقی یافتہ ٹیکنالوجی کے ذریعہ آپ کے مواد کو سکین کرنے اور صحیح املا کی تجویز کرنے دیں. تیار رہیں کہ آپ کا لکھائی کو باضابطہ بنائیں اور غلطیوں سے پاک مواد کے ساتھ باقاعدہ اثر انداز کریں."
+              color="info"
+              // icon={'ant-design:windows-filled'} 
+              icon={'ant-design:edit-filled'}
+              />
           </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Bug Reports" total={234} color="error" icon={'ant-design:bug-filled'} />
-          </Grid>
+          {/* <Grid item xs={12} sm={12} md={6}>
+            <AppWidgetSummary title="Bug Reports" subtitle={234} color="error" icon={'ant-design:bug-filled'} />
+          </Grid> */}
 
-          <Grid item xs={12} md={6} lg={8}>
+
+
+          {/* <Grid item xs={12} md={6} lg={8}>
             <AppWebsiteVisits
               title="Website Visits"
               subheader="(+43%) than last year"
@@ -211,7 +234,7 @@ export default function DashboardAppPage() {
                 { id: '5', label: 'Sprint Showcase' },
               ]}
             />
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
     </>
