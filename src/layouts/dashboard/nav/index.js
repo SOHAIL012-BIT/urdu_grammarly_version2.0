@@ -116,6 +116,9 @@ export default function Nav({ openNav, onCloseNav }) {
         flexShrink: { lg: 0 },
         width: { lg: NAV_WIDTH },
       }}
+      // style={{
+      //   backgroundColor:"#323439"
+      // }}
     >
       {isDesktop ? (
         <Drawer
@@ -125,7 +128,8 @@ export default function Nav({ openNav, onCloseNav }) {
             sx: {
               width: NAV_WIDTH,
               bgcolor: 'background.default',
-              borderRightStyle: 'dashed',
+              // bgcolor: '#323439',
+              // borderRightStyle: 'dashed',
             },
           }}
         >
