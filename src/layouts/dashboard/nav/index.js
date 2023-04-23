@@ -12,6 +12,9 @@ import useResponsive from '../../../hooks/useResponsive';
 import Logo from '../../../components/logo';
 import Scrollbar from '../../../components/scrollbar';
 import NavSection from '../../../components/nav-section';
+
+
+import dashboardLogo from '../../../assets/images/dashboardLogo.png'
 //
 import navConfig from './config';
 
@@ -54,7 +57,8 @@ export default function Nav({ openNav, onCloseNav }) {
       }}
     >
       <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
-        <Logo />
+        {/* <Logo /> */}
+        <img src={dashboardLogo} alt='Logo'/>
       </Box>
 
       <Box sx={{ mb: 5, mx: 2.5 }}>
