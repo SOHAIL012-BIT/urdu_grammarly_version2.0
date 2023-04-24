@@ -36,10 +36,10 @@ const GrammarChecking = () => {
             <Container maxWidth="xl">
                 
                 <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-                <Typography variant="h3"  color="#323439">
+                <Typography variant="h4"  color="#323439">
                     Grammar Checking
                     </Typography>
-                    <Typography variant="h3"  color="#323439">
+                    <Typography variant="h4"  color="#323439">
                     گرامر چیک کرنا
                     </Typography>
                 </Stack>

@@ -12,6 +12,9 @@ import AccountPopover from './AccountPopover';
 import LanguagePopover from './LanguagePopover';
 import NotificationsPopover from './NotificationsPopover';
 
+import dashboardLogo from '../../../assets/images/dashboardLogo.png'
+
+
 // ----------------------------------------------------------------------
 
 const NAV_WIDTH = 280;
@@ -57,7 +60,7 @@ export default function Header({ onOpenNav }) {
           <Iconify icon="eva:menu-2-fill" />
         </IconButton>
 
-        <Searchbar />
+        {/* <Searchbar /> */}
         <Box sx={{ flexGrow: 1 }} />
 
         <Stack

@@ -107,11 +107,11 @@ export default function Nav({ openNav, onCloseNav }) {
           </Button>
         </Stack>
       </Box>
-      <NavSection data={SupportNav} />
+      {/* <NavSection data={SupportNav} />
       <br/>
       <br/>
       <br/>
-      <br/>
+      <br/> */}
       {/* <NavSection data=[{}] />
       <NavSection data=[{}] />
       <NavSection data=[{}] /> */}

@@ -17,7 +17,7 @@ const StyledIcon = styled('div')(({ theme }) => ({
   width: theme.spacing(8),
   height: theme.spacing(8),
   justifyContent: 'center',
-  marginBottom: theme.spacing(3),
+  marginBottom: theme.spacing(1),
 }));
 
 // ----------------------------------------------------------------------

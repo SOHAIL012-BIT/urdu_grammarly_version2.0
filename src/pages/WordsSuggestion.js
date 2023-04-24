@@ -50,10 +50,10 @@ const WordsSuggestion = () => {
                     Words Suggestion
                 </Typography> */}
                 <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-                    <Typography variant="h3" color="#323439">
+                    <Typography variant="h4" color="#323439">
                         Words Suggestion
                     </Typography>
-                    <Typography variant="h3" color="#323439">
+                    <Typography variant="h4" color="#323439">
                     الفاظ کی تجویز
                     </Typography>
                 </Stack>
