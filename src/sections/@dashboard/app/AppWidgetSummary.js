@@ -37,8 +37,10 @@ export default function AppWidgetSummary({ subtitle, urduTrans, title, icon, col
         py: 5,
         boxShadow: 0,
         textAlign: 'center',
-        color: (theme) => theme.palette[color].darker,
-        bgcolor: (theme) => theme.palette[color].lighter,
+        // color: (theme) => theme.palette[color].darker,
+        // bgcolor: (theme) => theme.palette[color].lighter,
+        bgcolor:"#bbbdc4",
+        color:"#323439",
         ...sx,
       }}
       {...other}

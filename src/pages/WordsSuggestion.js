@@ -50,10 +50,10 @@ const WordsSuggestion = () => {
                     Words Suggestion
                 </Typography> */}
                    <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-                    <Typography variant="h4"  color="primary">
+                    <Typography variant="h3"  color="#323439">
                     Words Suggestion
                     </Typography>
-                    <Typography variant="h4"  color="primary">
+                    <Typography variant="h3"  color="#323439">
                     لفظ کی تجویز
                     </Typography>
                 </Stack>
@@ -95,8 +95,14 @@ const WordsSuggestion = () => {
                                     margin: "30px 10px 10px 10px",
                                     direction: 'rtl', // Set text direction to right-to-left
                                     textAlign: 'right', // Set text alignment to right
-                                    fontFamily: 'Nastaliq',
-                                    fontSize: "14pt",
+                                     fontFamily: 'Noto Nastaliq Urdu',
+                                     letterSpacing:'0.08rem',
+                                    // fontFamily: 'Noto Naskh Arabic',
+                                    fontSize: "16pt",
+                                    // backgroundColor:"#bbbdc4",
+                                    // color:"#323439",
+                                    color:"ffffff",
+                                    backgroundColor:"#323439",
                                 }}
 
                                 onClick={() => handleButtonClick(word)}

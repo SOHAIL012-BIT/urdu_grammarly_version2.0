@@ -36,10 +36,10 @@ const GrammarChecking = () => {
             <Container maxWidth="xl">
                 
                 <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-                    <Typography variant="h4"  color="primary">
+                <Typography variant="h3"  color="#323439">
                     Grammar Checking
                     </Typography>
-                    <Typography variant="h4"  color="primary">
+                    <Typography variant="h3"  color="#323439">
                     گرامر چیک کرنا
                     </Typography>
                 </Stack>
@@ -79,7 +79,11 @@ const GrammarChecking = () => {
                             direction: 'rtl', // Set text direction to right-to-left
                             textAlign: 'right', // Set text alignment to right
                             fontFamily: 'Nastaliq',
-                            fontSize: "14pt",
+                            fontSize: "16pt",
+                            // backgroundColor:"#bbbdc4",
+                            // color:"#323439",
+                            color:"ffffff",
+                            backgroundColor:"#323439",
                         }}
 
                         onClick={() => handleButtonClick()}
