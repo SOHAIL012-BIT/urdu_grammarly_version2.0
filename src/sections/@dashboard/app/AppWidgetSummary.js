@@ -51,12 +51,13 @@ export default function AppWidgetSummary({ subtitle, urduTrans, title, icon, col
     >
       <StyledIcon
         sx={{
-          color: (theme) => theme.palette[color].dark,
+          // color: (theme) => theme.palette[color].dark,
           backgroundImage: (theme) =>
             `linear-gradient(135deg, ${alpha(theme.palette[color].dark, 0)} 0%, ${alpha(
               theme.palette[color].dark,
               0.24
             )} 100%)`,
+            color:"#323439"
         }}
       >
         <Iconify icon={icon} width={24} height={24} />

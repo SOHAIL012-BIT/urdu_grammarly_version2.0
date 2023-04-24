@@ -48,4 +48,13 @@ const navConfig = [
   // },
 ];
 
-export default navConfig;
+const SupportNav=[
+  {
+    title: 'SignOut',
+    path: '/login',
+    icon: icon('ic_lock'),
+  },
+]
+// export default navConfig;
+export { navConfig, SupportNav };
+

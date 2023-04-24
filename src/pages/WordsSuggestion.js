@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Grid, Container, Typography, TextField, Button,Stack ,Tooltip } from '@mui/material';
+import { Grid, Container, Typography, TextField, Button, Stack, Tooltip } from '@mui/material';
 
 
 
@@ -49,12 +49,12 @@ const WordsSuggestion = () => {
                 {/* <Typography variant="h4" sx={{ mb: 5 }}>
                     Words Suggestion
                 </Typography> */}
-                   <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-                    <Typography variant="h3"  color="#323439">
-                    Words Suggestion
+                <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+                    <Typography variant="h3" color="#323439">
+                        Words Suggestion
                     </Typography>
-                    <Typography variant="h3"  color="#323439">
-                    لفظ کی تجویز
+                    <Typography variant="h3" color="#323439">
+                    الفاظ کی تجویز
                     </Typography>
                 </Stack>
 
@@ -63,7 +63,7 @@ const WordsSuggestion = () => {
                 <Grid container spacing={3} alignItems="center" justifyContent="center">
 
                     <Grid item xs={12} sm={12} md={8}>
-                        <TextField
+                        {/* <TextField
                             label="اپنی اردو یہاں لکھیں۔"
                             multiline
                             rows={15}
@@ -78,6 +78,41 @@ const WordsSuggestion = () => {
                             fullWidth
                             onChange={handleTextChange}
                         // Additional TextField props as needed
+                        /> */}
+                        <TextField
+                            label="اپنی اردو یہاں لکھیں۔"
+                            multiline
+                            rows={15}
+                            value={urduText}
+                            inputProps={{
+                                style: {
+                                    direction: 'rtl',
+                                    textAlign: 'right',
+                                    fontFamily: 'Nastaliq',
+                                },
+                                inputMode: 'text',
+                                lang: 'ur',
+                            }}
+                            fullWidth
+                            onChange={handleTextChange}
+                            InputLabelProps={{
+                                style: {
+                                    color: '#323439', // Change label color
+                                },
+                            }}
+                            InputProps={{
+                                style: {
+                                    '& .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: '#323439', // Change outline color
+                                    },
+                                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: '#323439', // Change outline color when hovered
+                                    },
+                                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: '#323439', // Change outline color when focused
+                                    },
+                                },
+                            }}
                         />
                     </Grid>
                 </Grid>
@@ -95,14 +130,14 @@ const WordsSuggestion = () => {
                                     margin: "30px 10px 10px 10px",
                                     direction: 'rtl', // Set text direction to right-to-left
                                     textAlign: 'right', // Set text alignment to right
-                                     fontFamily: 'Noto Nastaliq Urdu',
-                                     letterSpacing:'0.08rem',
+                                    fontFamily: 'Noto Nastaliq Urdu',
+                                    letterSpacing: '0.08rem',
                                     // fontFamily: 'Noto Naskh Arabic',
                                     fontSize: "16pt",
                                     // backgroundColor:"#bbbdc4",
                                     // color:"#323439",
-                                    color:"ffffff",
-                                    backgroundColor:"#323439",
+                                    color: "ffffff",
+                                    backgroundColor: "#323439",
                                 }}
 
                                 onClick={() => handleButtonClick(word)}
@@ -113,13 +148,13 @@ const WordsSuggestion = () => {
                     </Grid>
 
                     <Grid item xs={12} sm={12} md={8} direction="rtl">
-                    {(suggestedWords.length === 0) &&
-                        <Typography variant="h4" sx={{ mb: 5 }} color="primary">
-                            No Suggested Words
-                        </Typography>
-                    }
-                        </Grid>
-                   
+                        {(suggestedWords.length === 0) &&
+                            <Typography variant="h4" sx={{ mb: 5 }} color="primary">
+                                No Suggested Words
+                            </Typography>
+                        }
+                    </Grid>
+
                 </Grid>
 
             </Container>

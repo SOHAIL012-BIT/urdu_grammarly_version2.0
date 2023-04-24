@@ -16,7 +16,7 @@ import NavSection from '../../../components/nav-section';
 
 import dashboardLogo from '../../../assets/images/dashboardLogo.png'
 //
-import navConfig from './config';
+import {navConfig,SupportNav} from './config';
 
 // ----------------------------------------------------------------------
 
@@ -67,7 +67,7 @@ export default function Nav({ openNav, onCloseNav }) {
             <Avatar src={account.photoURL} alt="photoURL" />
 
             <Box sx={{ ml: 2 }}>
-              <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
+              <Typography variant="subtitle2" sx={{ color: 'text.primary' }} style={{color:"white"}}>
                 {account.displayName}
               </Typography>
 
@@ -83,29 +83,38 @@ export default function Nav({ openNav, onCloseNav }) {
 
       <Box sx={{ flexGrow: 1 }} />
 
-      {/* <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
+      <Box sx={{ px: 2.5, pb: 3, mt: 3 }}>
         <Stack alignItems="center" spacing={3} sx={{ pt: 5, borderRadius: 2, position: 'relative' }}>
           <Box
             component="img"
-            src="/assets/illustrations/illustration_avatar.png"
-            sx={{ width: 100, position: 'absolute', top: -50 }}
+            src="/assets/illustrations/illustration_avatar.svg"
+            sx={{ width: 70, position: 'absolute', top: -30 }}
           />
 
           <Box sx={{ textAlign: 'center' }}>
-            <Typography gutterBottom variant="h6">
-              Get more?
+            <Typography gutterBottom variant="h6" color="#ffffff">
+            Using Grammarly for work?
             </Typography>
 
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              From only $69
+            {/* <Typography variant="body2" sx={{ color: 'text.secondary' }} color="#ffffff"> */}
+            <Typography variant="body2" color="#ffffff">
+            Get Grammarly Business for your entire team.
             </Typography>
           </Box>
 
-          <Button href="https://material-ui.com/store/items/minimal-dashboard/" target="_blank" variant="contained">
-            Upgrade to Pro
+          <Button href="#"  variant="contained">
+            Learn More
           </Button>
         </Stack>
-      </Box> */}
+      </Box>
+      <NavSection data={SupportNav} />
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      {/* <NavSection data=[{}] />
+      <NavSection data=[{}] />
+      <NavSection data=[{}] /> */}
     </Scrollbar>
   );
 
@@ -143,7 +152,10 @@ export default function Nav({ openNav, onCloseNav }) {
             keepMounted: true,
           }}
           PaperProps={{
-            sx: { width: NAV_WIDTH },
+            sx: { width: NAV_WIDTH,
+              bgcolor: '#323439',
+             },
+           
           }}
         >
           {renderContent}

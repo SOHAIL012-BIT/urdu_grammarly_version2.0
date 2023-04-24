@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Grid, Container, Typography, TextField } from '@mui/material';
+import { Grid, Container, Typography, Stack } from '@mui/material';
 
 
 
@@ -33,9 +33,17 @@ export default function DashboardAppPage() {
       </Helmet>
 
       <Container maxWidth="xl">
-        <Typography variant="h4" sx={{ mb: 5 }}>
+        {/* <Typography variant="h4" sx={{ mb: 5 }}>
           Hi, Welcome back
-        </Typography>
+        </Typography> */}
+          <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+                    <Typography variant="h3" color="#323439">
+                    Hi, Welcome back
+                    </Typography>
+                    <Typography variant="h3" color="#323439">
+                    سلام، آپ کا خیر مقدم
+                    </Typography>
+                </Stack>
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={12} md={6}>

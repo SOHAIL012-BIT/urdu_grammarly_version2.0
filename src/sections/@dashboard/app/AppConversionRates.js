@@ -21,8 +21,27 @@ export default function AppConversionRates({ title, subheader, chartColors, char
 
   const chartSeries = chartData.map((i) => i.value);
 
+  // const chartOptions = useChart({
+  //   colors: chartColors,
+  //   tooltip: {
+  //     marker: { show: false },
+  //     y: {
+  //       formatter: (seriesName) => fNumber(seriesName),
+  //       title: {
+  //         formatter: () => '',
+  //       },
+  //     },
+  //   },
+  //   plotOptions: {
+  //     bar: { horizontal: true, barHeight: '28%', borderRadius: 2 },
+  //   },
+  //   xaxis: {
+  //     categories: chartLabels,
+  //   },
+  // });
   const chartOptions = useChart({
-    colors: chartColors,
+    // colors: chartColors,
+    colors: ['#323439'],
     tooltip: {
       marker: { show: false },
       y: {
@@ -33,19 +52,51 @@ export default function AppConversionRates({ title, subheader, chartColors, char
       },
     },
     plotOptions: {
-      bar: { horizontal: true, barHeight: '28%', borderRadius: 2 },
+      // bar: { horizontal: true, barHeight: '28%', borderRadius: 2 },
+      bar: { 
+        horizontal: true, 
+        barHeight: '28%', 
+        borderRadius: 2,
+        color: '#323439', // set the color of the bars
+      },
     },
     xaxis: {
       categories: chartLabels,
+      labels: {
+        style: {
+          fontSize: '12pt', // set the font size of x-axis labels
+          fontWeight: 'bold', // set the font weight of x-axis labels
+          color: '#323439', // set the color of x-axis labels
+        },
+      },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          fontSize: '12pt', // set the font size of y-axis labels
+          fontWeight: 'bold', // set the font weight of y-axis labels
+          color: '#323439', // set the color of y-axis labels
+        },
+      },
+    },
+    chart: {
+      toolbar: {
+        show: true, // hide the chart toolbar
+      },
     },
   });
 
   return (
     <Card {...other}>
-      <CardHeader title={title} subheader={subheader} />
+      <CardHeader title={title} subheader={subheader} style={{fontSize:"18pt"}}/>
 
       <Box sx={{ mx: 3 }} dir="ltr">
-        <ReactApexChart type="bar" series={[{ data: chartSeries }]} options={chartOptions} height={150} />
+        <ReactApexChart type="bar" series={[{ data: chartSeries }]} options={chartOptions} height={150} 
+         style={{ color: '#323439', 
+         fontSize: '18px',
+        //  backgroundColor:"#323439"
+         }}
+         />
       </Box>
     </Card>
   );
