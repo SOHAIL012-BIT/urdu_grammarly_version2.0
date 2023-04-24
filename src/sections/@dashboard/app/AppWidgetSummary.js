@@ -47,6 +47,7 @@ export default function AppWidgetSummary({ subtitle, urduTrans, title, icon, col
 
       style={{
         margin: "10px 10px 10px 10px ",
+        cursor:"pointer"
       }}
     >
       <StyledIcon

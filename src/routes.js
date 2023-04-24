@@ -11,6 +11,8 @@ import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/DashboardAppPage';
 import WordsSuggestion from './pages/WordsSuggestion';
 import GrammarChecking from './pages/GrammarChecking';
+import SentenceCorrection from './pages/SentenceCorrection';
+
 
 // ----------------------------------------------------------------------
 
@@ -27,6 +29,8 @@ export default function Router() {
         { path: 'blog', element: <BlogPage /> },
         { path: 'WordsSuggestion', element: <WordsSuggestion /> },
         { path: 'GrammarChecking', element: <GrammarChecking /> },
+        { path: 'SentenceCorrection', element: <SentenceCorrection /> },
+
 
       ],
     },

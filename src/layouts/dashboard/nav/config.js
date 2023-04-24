@@ -17,6 +17,11 @@ const navConfig = [
     icon: icon('ic_blog'),
   },
   {
+    title: 'Sentence Correction',
+    path: '/dashboard/SentenceCorrection',
+    icon: icon('ic_blog'),
+  },
+  {
     title: 'Grammar Checking',
     path: '/dashboard/GrammarChecking',
     icon: icon('ic_blog'),

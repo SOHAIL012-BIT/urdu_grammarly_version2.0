@@ -75,7 +75,7 @@ const GrammarChecking = () => {
                         color="primary"
                         size="medium"
                         style={{
-                            margin: "30px 10px 10px 10px",
+                            margin: "3px 10px 3px 10px",
                             direction: 'rtl', // Set text direction to right-to-left
                             textAlign: 'right', // Set text alignment to right
                             fontFamily: 'Nastaliq',
@@ -113,7 +113,6 @@ const GrammarChecking = () => {
                     </Grid>
 
                 </Grid>
-
             </Container>
         </>
     )
