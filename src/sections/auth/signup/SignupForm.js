@@ -8,7 +8,7 @@ import Iconify from '../../../components/iconify';
 
 // ----------------------------------------------------------------------
 
-export default function LoginForm() {
+export default function SignupForm() {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -20,6 +20,8 @@ export default function LoginForm() {
   return (
     <>
       <Stack spacing={3}>
+
+      <TextField name="name" label="User Name" />
         <TextField name="email" label="Email address" />
 
         <TextField
@@ -39,14 +41,27 @@ export default function LoginForm() {
       </Stack>
 
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-        <Checkbox name="remember" label="Remember me"  style={{color:"#323439"}}/>
+        {/* <Checkbox name="remember" label="Remember me"  style={{color:"#323439"}}/>
         <Link variant="subtitle2" underline="hover"  style={{color:"#323439"}}>
           Forgot password?
-        </Link>
+        </Link> */}
+        <p
+                    className="text-center mb-3 mt-3 text-muted small"
+                    style={{ fontSize: "14px" }}
+                  >
+                    By signing up, you agree to the{" "}
+                    <a href="#action" style={{ textDecoration: "underline" }}>
+                      Terms and Conditions{" "}
+                    </a>{" "}
+                    and{" "}
+                    <a href="#act" style={{ textDecoration: "underline" }}>
+                      Privacy Policy.
+                    </a>{" "}
+                  </p>
       </Stack>
 
       <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={handleClick}  style={{backgroundColor:"#323439", color:"#ffffff"}}>
-        Sign
+        Agree & Sign up
       </LoadingButton>
     </>
   );

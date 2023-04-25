@@ -14,6 +14,7 @@ import Iconify from '../components/iconify';
 
 import dashboardLogo from '../assets/images/dashboardLogo.png'
 
+
 // ----------------------------------------------------------------------
 
 const StyledRoot = styled('div')(({ theme }) => ({
@@ -44,13 +45,13 @@ const StyledContent = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function LoginPage() {
+export default function SignupPage() {
   const mdUp = useResponsive('up', 'md');
 
   return (
     <>
       <Helmet>
-        <title> Login | Urdu Grammarly</title>
+        <title> Sign up | Urdu Grammarly</title>
       </Helmet>
 
       <StyledRoot>
@@ -63,10 +64,10 @@ export default function LoginPage() {
         /> */}
 
         {mdUp && (
-          <StyledSection style={{backgroundColor:"#323439", color:"#ffffff"}}>
-             <img src={dashboardLogo} alt="login" style={{position:"relative", bottom:150,width:"50%",marginLeft:"auto",marginRight:"auto"}} />
+          <StyledSection style={{ backgroundColor: "#323439", color: "#ffffff" }}>
+            <img src={dashboardLogo} alt="login" style={{ position: "relative", bottom: 150, width: "50%", marginLeft: "auto", marginRight: "auto" }} />
             <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Hi, Welcome Back
+              Hi, Welcome
             </Typography>
             <img src="/assets/illustrations/illustration_login.png" alt="login" />
             {/* <img src="/assets/illustrations/BUKC.png" alt="login" /> */}
@@ -75,27 +76,27 @@ export default function LoginPage() {
 
         <Container maxWidth="sm">
           <StyledContent>
-            <Typography variant="h4" gutterBottom  style={{color:"#323439"}}>
-              Sign in to Urdu Grammarly
+            <Typography variant="h4" gutterBottom style={{ color: "#323439" }}>
+              Sign Up to Urdu Grammarly
             </Typography>
 
-            <Typography variant="body2" sx={{ mb: 5 }} style={{color:"#323439"}}>
-              Don’t have an account? {''}
-              <Link variant="subtitle2" href="/signup" style={{color:"#323439"}}>Create One</Link>
+            <Typography variant="body2" sx={{ mb: 5 }} style={{ color: "#323439" }}>
+              Already have an account? {''}
+              <Link variant="subtitle2" href="/login" style={{ color: "#323439" }}>Get started</Link>
             </Typography>
 
-          
 
-            
 
-            <LoginForm />
-            {/* <SignupForm/> */}
+
+
+            {/* <LoginForm /> */}
+            <SignupForm />
             <Divider sx={{ my: 3 }}>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 OR
               </Typography>
             </Divider>
-              <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={2}>
               <Button fullWidth size="large" color="inherit" variant="outlined">
                 <Iconify icon="eva:google-fill" color="#DF3E30" width={22} height={22} />
                 <Typography variant="h5" sx={{ color: 'text.secondary' }} style={{margin:"auto"}}>
