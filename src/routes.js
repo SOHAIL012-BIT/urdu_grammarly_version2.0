@@ -13,7 +13,7 @@ import DashboardAppPage from './pages/DashboardAppPage';
 import WordsSuggestion from './pages/WordsSuggestion';
 import GrammarChecking from './pages/GrammarChecking';
 import SentenceCorrection from './pages/SentenceCorrection';
-
+import TextEditor from './pages/TextEditor';
 
 // ----------------------------------------------------------------------
 
@@ -31,7 +31,7 @@ export default function Router() {
         { path: 'WordsSuggestion', element: <WordsSuggestion /> },
         { path: 'GrammarChecking', element: <GrammarChecking /> },
         { path: 'SentenceCorrection', element: <SentenceCorrection /> },
-
+        { path: 'TextEditor', element: <TextEditor /> },
 
       ],
     },

@@ -1,0 +1,33 @@
+npm install jspdf
+npm install file-saver
+
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import { saveAs } from 'file-saver';
+
+
+const exportToPdf = () => {
+  // Create a new jsPDF instance
+  const doc = new jsPDF();
+  
+  // Add text to the PDF
+  doc.text('Hello World!', 10, 10);
+  
+  // Save the PDF as a file
+  doc.save('example.pdf');
+};
+
+<button onClick={exportToPdf}>Export to PDF</button>
+const exportToPdf = () => {
+  // Create a new jsPDF instance
+  const doc = new jsPDF();
+  
+  // Add text to the PDF
+  doc.text('Hello World!', 10, 10);
+  
+  // Save the PDF as a file
+  doc.save('example.pdf');
+  
+  // Alternatively, for .odc files or other file formats, you can use the saveAs function
+  // saveAs(blob, filename);
+};

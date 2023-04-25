@@ -26,6 +26,11 @@ const navConfig = [
     path: '/dashboard/GrammarChecking',
     icon: icon('ic_blog'),
   },
+  {
+    title: 'Urdu Text Editor',
+    path: '/dashboard/TextEditor',
+    icon: icon('ic_blog'),
+  },
   // {
   //   title: 'user',
   //   path: '/dashboard/user',
