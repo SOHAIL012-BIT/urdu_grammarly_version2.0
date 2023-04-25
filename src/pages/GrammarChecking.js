@@ -6,6 +6,8 @@ import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography, TextField, Button ,Stack,Tooltip} from '@mui/material';
 
 import { AppConversionRates } from '../sections/@dashboard/app';
+import Scrollbar from '../components/scrollbar';
+
 
 // components
 import Iconify from '../components/iconify';
@@ -44,7 +46,7 @@ const GrammarChecking = () => {
                     </Typography>
                 </Stack>
 
-
+                <Scrollbar>
                 <Grid container spacing={3} alignItems="center" justifyContent="center">
 
                     <Grid item xs={12} sm={12} md={8}>
@@ -113,6 +115,7 @@ const GrammarChecking = () => {
                     </Grid>
 
                 </Grid>
+                </Scrollbar>
             </Container>
         </>
     )

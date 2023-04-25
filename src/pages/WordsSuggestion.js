@@ -63,7 +63,7 @@ const WordsSuggestion = () => {
                 <Grid container spacing={3} alignItems="center" justifyContent="center">
 
                     <Grid item xs={12} sm={12} md={8}>
-                        {/* <TextField
+                        <TextField
                             label="اپنی اردو یہاں لکھیں۔"
                             multiline
                             rows={15}
@@ -78,41 +78,6 @@ const WordsSuggestion = () => {
                             fullWidth
                             onChange={handleTextChange}
                         // Additional TextField props as needed
-                        /> */}
-                        <TextField
-                            label="اپنی اردو یہاں لکھیں۔"
-                            multiline
-                            rows={15}
-                            value={urduText}
-                            inputProps={{
-                                style: {
-                                    direction: 'rtl',
-                                    textAlign: 'right',
-                                    fontFamily: 'Nastaliq',
-                                },
-                                inputMode: 'text',
-                                lang: 'ur',
-                            }}
-                            fullWidth
-                            onChange={handleTextChange}
-                            InputLabelProps={{
-                                style: {
-                                    color: '#323439', // Change label color
-                                },
-                            }}
-                            InputProps={{
-                                style: {
-                                    '& .MuiOutlinedInput-notchedOutline': {
-                                        borderColor: '#323439', // Change outline color
-                                    },
-                                    '&:hover .MuiOutlinedInput-notchedOutline': {
-                                        borderColor: '#323439', // Change outline color when hovered
-                                    },
-                                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                        borderColor: '#323439', // Change outline color when focused
-                                    },
-                                },
-                            }}
                         />
                     </Grid>
                 </Grid>
