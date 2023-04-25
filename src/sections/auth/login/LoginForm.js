@@ -39,13 +39,13 @@ export default function LoginForm() {
       </Stack>
 
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-        <Checkbox name="remember" label="Remember me" />
-        <Link variant="subtitle2" underline="hover">
+        <Checkbox name="remember" label="Remember me"  style={{color:"#323439"}}/>
+        <Link variant="subtitle2" underline="hover"  style={{color:"#323439"}}>
           Forgot password?
         </Link>
       </Stack>
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={handleClick}>
+      <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={handleClick}  style={{backgroundColor:"#323439", color:"#ffffff"}}>
         Login
       </LoadingButton>
     </>
