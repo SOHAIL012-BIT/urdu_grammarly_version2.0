@@ -19,6 +19,8 @@ import {
 
 // components
 import Iconify from '../components/iconify';
+import OnScreenKeyboard from '../components/onScreenKeyboard/OnScreenKeyboard';
+
 
 const urduSentence = [
     '.ہمارے اے آئی پاورڈ جملوں اور الفاظ کی تجویز کرنے والے ٹول کے ساتھ اپنی لکھائی کی صلاحیت کو کھولیں.',
@@ -39,6 +41,7 @@ const urduWords = [
 
 const TextEditor = () => {
     const theme = useTheme();
+    const [shouldOpenDialog, setShouldOpenDialog] = useState(false);
     const [urduText, setUrduText] = useState('');
     const [suggestedWords, setSuggestedWords] = useState(urduWords)
     const [correctSentence, setCorrectSentence] = useState(urduSentence)
@@ -55,6 +58,11 @@ const TextEditor = () => {
 
     }
 
+
+    const handleCloseTarget = () => {
+        // updatePageData();
+        setShouldOpenDialog(false);
+    }
     console.log("Urdu Text is", urduText.length)
 
     useEffect(() => {
@@ -79,27 +87,28 @@ const TextEditor = () => {
                     </Typography>
                     <Button
 
-                            variant="contained"
-                            color="primary"
-                            size="medium"
-                            style={{
-                                margin: "30px 10px 10px 10px",
-                                direction: 'rtl', // Set text direction to right-to-left
-                                textAlign: 'right', // Set text alignment to right
-                                fontFamily: 'Noto Nastaliq Urdu',
-                                letterSpacing: '0.08rem',
-                                // fontFamily: 'Noto Naskh Arabic',
-                                fontSize: "16pt",
-                                // backgroundColor:"#bbbdc4",
-                                // color:"#323439",
-                                color: "ffffff",
-                                backgroundColor: "#323439",
-                            }}
+                        variant="contained"
+                        color="primary"
+                        size="medium"
+                        style={{
+                            margin: "30px 10px 10px 10px",
+                            direction: 'rtl', // Set text direction to right-to-left
+                            textAlign: 'right', // Set text alignment to right
+                            fontFamily: 'Noto Nastaliq Urdu',
+                            letterSpacing: '0.08rem',
+                            // fontFamily: 'Noto Naskh Arabic',
+                            fontSize: "16pt",
+                            // backgroundColor:"#bbbdc4",
+                            // color:"#323439",
+                            color: "ffffff",
+                            backgroundColor: "#323439",
+                        }}
 
-                            onClick={() => handleButtonClick()}
-                        >
-                            Export as PDF
-                        </Button>
+                        // onClick={() => handleButtonClick()}
+                        onClick={() => setShouldOpenDialog(true)}
+                    >
+                        Export as PDF
+                    </Button>
                     <Typography variant="h4" color="#323439">
                         اُردو لکھائی محرر
                     </Typography>
@@ -233,8 +242,11 @@ const TextEditor = () => {
                             ]}
                         />
                     </Grid>
-                    
+
                 </Grid>
+                {shouldOpenDialog &&
+                    <OnScreenKeyboard open={shouldOpenDialog} closemodal={handleCloseTarget} />
+                }
 
             </Container>
         </>
