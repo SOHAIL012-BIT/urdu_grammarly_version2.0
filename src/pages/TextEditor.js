@@ -77,6 +77,29 @@ const TextEditor = () => {
                     <Typography variant="h4" color="#323439">
                         Urdu Text Editor
                     </Typography>
+                    <Button
+
+                            variant="contained"
+                            color="primary"
+                            size="medium"
+                            style={{
+                                margin: "30px 10px 10px 10px",
+                                direction: 'rtl', // Set text direction to right-to-left
+                                textAlign: 'right', // Set text alignment to right
+                                fontFamily: 'Noto Nastaliq Urdu',
+                                letterSpacing: '0.08rem',
+                                // fontFamily: 'Noto Naskh Arabic',
+                                fontSize: "16pt",
+                                // backgroundColor:"#bbbdc4",
+                                // color:"#323439",
+                                color: "ffffff",
+                                backgroundColor: "#323439",
+                            }}
+
+                            onClick={() => handleButtonClick()}
+                        >
+                            Export as PDF
+                        </Button>
                     <Typography variant="h4" color="#323439">
                         اُردو لکھائی محرر
                     </Typography>
@@ -210,7 +233,7 @@ const TextEditor = () => {
                             ]}
                         />
                     </Grid>
-
+                    
                 </Grid>
 
             </Container>
