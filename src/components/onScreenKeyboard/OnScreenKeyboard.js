@@ -35,14 +35,16 @@ function PaperComponent(props) {
   );
 }
 
-const OnScreenKeyboard = ({ open, closemodal, inputText }) => {
+const OnScreenKeyboard = ({ open, closemodal, inputText,sendDataToParent }) => {
   const [layoutName, setLayoutName] = useState("default");
   const [input, setInput] = useState(inputText);
   const keyboard = useRef(null);
 
   const onChange = (input) => {
     setInput(input);
-    console.log("Input changed", input);
+    // console.log("Input changed", input);
+    sendDataToParent(input);
+
   };
 
   const onKeyPress = (button) => {
@@ -74,15 +76,24 @@ const OnScreenKeyboard = ({ open, closemodal, inputText }) => {
         aria-labelledby="customized-dialog-title"
         fullWidth
         maxWidth="sm"
+        BackdropProps={{
+          style: { backgroundColor: 'transparent' }
+        }}
       >
 
         <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
-          OnScreen Keyboard
+          {/* On Screen Keyboard */}
+          <Stack direction="row" alignItems="center" justifyContent="space-between" mb={0}>
+            <Typography variant="h4" color="#323439">
+              On Screen Keyboard
+            </Typography>
+            <Button autoFocus onClick={() => closemodal()}>
+            Close
+          </Button>
+            </Stack>
         </DialogTitle>
         <DialogContent>
-          {/* <input value={input} onChange={(e) => setInput(e.target.value)} /> */}
           <Keyboard
-            // keyboardRef={(r) => (keyboard.current = r)}
             keyboardRef={(r) => {
               keyboard.current = r;
             }}
@@ -93,12 +104,11 @@ const OnScreenKeyboard = ({ open, closemodal, inputText }) => {
             onKeyPress={onKeyPress}
           />
         </DialogContent>
-        <DialogActions>
+        {/* <DialogActions>
           <Button autoFocus onClick={() => closemodal()}>
-            Cancel
+            Close
           </Button>
-          <Button onClick={() => closemodal()}>Subscribe</Button>
-        </DialogActions>
+        </DialogActions> */}
       </Dialog>
     </div>
   )

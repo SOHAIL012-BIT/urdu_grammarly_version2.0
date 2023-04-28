@@ -59,6 +59,11 @@ const TextEditor = () => {
     }
 
 
+    const handleDataFromChild = (data) => {
+        // setUrduText(prevData => [...prevData, ...data]);
+        // setUrduText(`${urduText}  ${data}`);
+        setUrduText(data)
+      }
     const handleCloseTarget = () => {
         // updatePageData();
         setShouldOpenDialog(false);
@@ -245,7 +250,7 @@ const TextEditor = () => {
 
                 </Grid>
                 {shouldOpenDialog &&
-                    <OnScreenKeyboard open={shouldOpenDialog} closemodal={handleCloseTarget} inputText={urduText} />
+                    <OnScreenKeyboard open={shouldOpenDialog} closemodal={handleCloseTarget} inputText={urduText} sendDataToParent={handleDataFromChild} />
                 }
 
             </Container>
