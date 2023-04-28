@@ -57,10 +57,70 @@ const WordsSuggestion = () => {
                     الفاظ کی تجویز
                     </Typography>
                 </Stack>
-
-
-
                 <Grid container spacing={3} alignItems="center" justifyContent="center">
+                <Grid item xs={12} sm={12} md={4}>
+                <Typography variant="h5" color="#323439">
+                       Suggested Words
+                    </Typography>
+                {suggestedWords.map((word) => (
+                            <Button
+                                key={word}
+                                variant="contained"
+                                color="primary"
+                                size="medium"
+                                style={{
+                                    margin: "3px 10px 10px 10px",
+                                    direction: 'rtl', // Set text direction to right-to-left
+                                    textAlign: 'right', // Set text alignment to right
+                                    fontFamily: 'Noto Nastaliq Urdu',
+                                    letterSpacing: '0.08rem',
+                                    // fontFamily: 'Noto Naskh Arabic',
+                                    fontSize: "16pt",
+                                    // backgroundColor:"#bbbdc4",
+                                    // color:"#323439",
+                                    color: "ffffff",
+                                    backgroundColor: "#323439",
+                                }}
+
+                                onClick={() => handleButtonClick(word)}
+                            >
+                                {word}
+                            </Button>
+                        ))}
+                    
+                    </Grid>
+                        {(suggestedWords.length === 0) &&
+                    <Grid item xs={12} sm={12} md={4} direction="rtl">
+                            <Typography variant="h4" sx={{ mb: 5 }} color="primary">
+                                No Suggested Words
+                            </Typography>
+                    </Grid>
+                        }
+
+                    <Grid item xs={12} sm={12} md={8}>
+                        <TextField
+                            label="اپنی اردو یہاں لکھیں۔"
+                            multiline
+                            rows={15}
+                            value={urduText}
+                            inputProps={{
+                                style: {
+                                    direction: 'rtl', // Set text direction to right-to-left
+                                    textAlign: 'right', // Set text alignment to right
+                                    fontFamily: 'Nastaliq', // Use a Urdu-specific font for better display
+                                },
+                            }}
+                            fullWidth
+                            onChange={handleTextChange}
+                        // Additional TextField props as needed
+                        />
+                    </Grid>
+                 
+            
+                </Grid>
+
+
+                {/* <Grid container spacing={3} alignItems="center" justifyContent="center">
 
                     <Grid item xs={12} sm={12} md={8}>
                         <TextField
@@ -89,7 +149,7 @@ const WordsSuggestion = () => {
                     </Grid>
 
                     <Grid item xs={12} sm={12} md={8} direction="rtl">
-                        {/* <Button>Hello</Button> */}
+                     
                         {suggestedWords.map((word) => (
                             <Button
                                 key={word}
@@ -125,7 +185,7 @@ const WordsSuggestion = () => {
                         }
                     </Grid>
 
-                </Grid>
+                </Grid> */}
 
             </Container>
         </>

@@ -8044,6 +8044,11 @@ react-scripts@^5.0.1:
   optionalDependencies:
     fsevents "^2.3.2"
 
+react-simple-keyboard@^3.5.64:
+  version "3.5.64"
+  resolved "https://registry.npmjs.org/react-simple-keyboard/-/react-simple-keyboard-3.5.64.tgz"
+  integrity sha512-6f0wvr9PPYbcqPa4guA30WLzaxPnk/xR3VyMD3afd5CUn6VfTaDjABAlY27ddDFDRc+Jpo39UnJXVCaa35KBig==
+
 react-transition-group@^4.4.0, react-transition-group@^4.4.5:
   version "4.4.5"
   resolved "https://registry.npmjs.org/react-transition-group/-/react-transition-group-4.4.5.tgz"
@@ -8540,6 +8545,11 @@ signal-exit@^3.0.2, signal-exit@^3.0.3:
   version "3.0.7"
   resolved "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.7.tgz"
   integrity sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==
+
+simple-keyboard-layouts@^3.1.314:
+  version "3.1.314"
+  resolved "https://registry.npmjs.org/simple-keyboard-layouts/-/simple-keyboard-layouts-3.1.314.tgz"
+  integrity sha512-28WU5cmclNZYJ0dV9moBHQr+G68XUxDIrInj/YIFbC97bSxvX4iPtnYD+wgUOJyNgV3w5FypK/cM7roCVu+Pzg==
 
 simplebar-core@^1.2.1:
   version "1.2.1"

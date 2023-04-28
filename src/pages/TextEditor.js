@@ -245,7 +245,7 @@ const TextEditor = () => {
 
                 </Grid>
                 {shouldOpenDialog &&
-                    <OnScreenKeyboard open={shouldOpenDialog} closemodal={handleCloseTarget} />
+                    <OnScreenKeyboard open={shouldOpenDialog} closemodal={handleCloseTarget} inputText={urduText} />
                 }
 
             </Container>
