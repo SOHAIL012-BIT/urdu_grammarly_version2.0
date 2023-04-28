@@ -24,6 +24,71 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+const myKeyboardTheme = {
+  fontSize: "16px",
+  fontFamily: "Arial, sans-serif",
+  borderRadius: "10px",
+  boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.2)",
+  backgroundColor: "pink",
+  color: "#333",
+  ".hg-button": {
+    backgroundColor: "#fff",
+    borderRadius: "5px",
+    border: "none",
+    color: "#333",
+    boxShadow: "0px 0px 5px 0px rgba(0, 0, 0, 0.1)",
+    "&.hg-active": {
+      backgroundColor: "#333",
+      color: "#fff",
+    },
+    "&:active": {
+      backgroundColor: "#ddd",
+    },
+    "&.hg-enter": {
+      backgroundColor: "#4caf50",
+      color: "#fff",
+    },
+    "&.hg-enter:active": {
+      backgroundColor: "#388e3c",
+    },
+  },
+};
+
+const myKeyboardStyles = {
+  ".react-simple-keyboard": {
+    backgroundColor: "pink",
+    borderRadius: "10px",
+    boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.2)",
+  },
+  ".hg-theme-default": {
+    backgroundColor: "#954141",
+    borderRadius: "10px",
+    boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.2)",
+  },
+  ".hg-theme-default .hg-button": {
+    backgroundColor: "#fff",
+    borderRadius: "5px",
+    border: "none",
+    color: "#333",
+    boxShadow: "0px 0px 5px 0px rgba(0, 0, 0, 0.1)",
+    "&.hg-active": {
+      backgroundColor: "#333",
+      color: "#fff",
+    },
+    "&:active": {
+      backgroundColor: "#ddd",
+    },
+    "&.hg-enter": {
+      backgroundColor: "#4caf50",
+      color: "#fff",
+    },
+    "&.hg-enter:active": {
+      backgroundColor: "#388e3c",
+    },
+  },
+};
+
+
 function PaperComponent(props) {
   return (
     <Draggable
@@ -79,12 +144,22 @@ const OnScreenKeyboard = ({ open, closemodal, inputText,sendDataToParent }) => {
         BackdropProps={{
           style: { backgroundColor: 'transparent' }
         }}
+        PaperProps={{
+          style: { backgroundColor: 'transparent' }
+        }}
+        style={{
+          position: 'fixed',
+          bottom:"-60vh",
+          boxShadow: `0px 0px 10px 0px #323439, 0px 0px 20px 0px #323439, 0px 0px 30px 0px #323439, 0px 0px 40px 0px #323439, 0px 0px 70px 0px #323439`,
+          border: `1px solid #323439`,
+          borderRadius: '10px',
+        }}
       >
 
-        <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
+        <DialogTitle style={{ cursor: 'move',padding: 0 }} id="draggable-dialog-title">
           {/* On Screen Keyboard */}
-          <Stack direction="row" alignItems="center" justifyContent="space-between" mb={0}>
-            <Typography variant="h4" color="#323439">
+          <Stack direction="row" alignItems="center" justifyContent="space-between">
+            <Typography variant="h6" color="#323439">
               On Screen Keyboard
             </Typography>
             <Button autoFocus onClick={() => closemodal()}>
@@ -92,7 +167,7 @@ const OnScreenKeyboard = ({ open, closemodal, inputText,sendDataToParent }) => {
           </Button>
             </Stack>
         </DialogTitle>
-        <DialogContent>
+        <DialogContent  style={{ padding: 0 }}>
           <Keyboard
             keyboardRef={(r) => {
               keyboard.current = r;
@@ -102,6 +177,11 @@ const OnScreenKeyboard = ({ open, closemodal, inputText,sendDataToParent }) => {
             layoutName={layoutName}
             onChange={onChange}
             onKeyPress={onKeyPress}
+            theme={"hg-theme-default hg-layout-default"}
+            style={myKeyboardStyles}
+            // theme={myKeyboardTheme}
+            physicalKeyboardHighlight
+            
           />
         </DialogContent>
         {/* <DialogActions>
