@@ -10,9 +10,13 @@ import Draggable from 'react-draggable';
 import { Grid, Container, Typography, TextField, Button, Stack, Tooltip } from '@mui/material';
 import { makeStyles } from '@material-ui/core';
 
+
+
+
 import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 import Urdu from './Urdu';
+import Iconify from '../iconify';
 
 const useStyles = makeStyles((theme) => ({
   closeButton: {
@@ -27,8 +31,8 @@ const useStyles = makeStyles((theme) => ({
 const myKeyboardTheme = {
   fontSize: "16px",
   fontFamily: "Arial, sans-serif",
-  borderRadius: "10px",
-  boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.2)",
+  borderRadius: "5px",
+  boxShadow: "0px 0px 5px 0px rgba(0, 0, 0, 0.2)",
   backgroundColor: "pink",
   color: "#333",
   ".hg-button": {
@@ -57,13 +61,13 @@ const myKeyboardTheme = {
 const myKeyboardStyles = {
   ".react-simple-keyboard": {
     backgroundColor: "pink",
-    borderRadius: "10px",
-    boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.2)",
+    borderRadius: "5px",
+    boxShadow: "0px 0px 5px 0px rgba(0, 0, 0, 0.2)",
   },
   ".hg-theme-default": {
     backgroundColor: "#954141",
-    borderRadius: "10px",
-    boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.2)",
+    borderRadius: "5px",
+    boxShadow: "0px 0px 5px 0px rgba(0, 0, 0, 0.2)",
   },
   ".hg-theme-default .hg-button": {
     backgroundColor: "#fff",
@@ -145,25 +149,33 @@ const OnScreenKeyboard = ({ open, closemodal, inputText,sendDataToParent }) => {
           style: { backgroundColor: 'transparent' }
         }}
         PaperProps={{
-          style: { backgroundColor: 'transparent' }
+          style: { backgroundColor: '#323439' ,
+          fontSize:"14pt",                            
+          fontFamily: 'Noto Nastaliq Urdu',
+          boxShadow: `0px 0px 3px 0px #323439, 0px 0px 3px 0px #323439, 0px 0px 3px 0px #323439, 0px 0px 3px 0px #323439, 0px 0px 3px 0px #323439`,
+          border: `0.5px solid #323439`,
+          borderRadius: '1px'
+        }
         }}
         style={{
           position: 'fixed',
           bottom:"-60vh",
-          boxShadow: `0px 0px 10px 0px #323439, 0px 0px 20px 0px #323439, 0px 0px 30px 0px #323439, 0px 0px 40px 0px #323439, 0px 0px 70px 0px #323439`,
-          border: `1px solid #323439`,
-          borderRadius: '10px',
+          // boxShadow: `0px 0px 5px 0px #323439, 0px 0px 20px 0px #323439, 0px 0px 30px 0px #323439, 0px 0px 40px 0px #323439, 0px 0px 70px 0px #323439`,
+          // border: `1px solid #323439`,
+          // borderRadius: '5px',
         }}
       >
 
         <DialogTitle style={{ cursor: 'move',padding: 0 }} id="draggable-dialog-title">
           {/* On Screen Keyboard */}
           <Stack direction="row" alignItems="center" justifyContent="space-between">
-            <Typography variant="h6" color="#323439">
+            <Typography variant="h6" color="white">
               On Screen Keyboard
             </Typography>
             <Button autoFocus onClick={() => closemodal()}>
-            Close
+            {/* Close */}
+            {/* <Iconify icon="eva:close-fill" /> */}
+            <Iconify icon="eva:close-fill" color="red" />
           </Button>
             </Stack>
         </DialogTitle>
