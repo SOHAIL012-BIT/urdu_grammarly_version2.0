@@ -54,6 +54,7 @@ const SentenceCorrection = () => {
       if (actionName === 'Copy To clipboard') {
         copytoClipBoard(urduText)
       } else if (actionName === 'Open Keyboard') {
+        setUrduText(`${urduText} `);
         setShouldOpenDialog(true);
       }
   

@@ -45,6 +45,8 @@ const TextEditor = () => {
   };
 
   const handleDataFromChild = (data) => {
+    // eslint-disable-next-line no-debugger
+    debugger
     setUrduText(data);
   };
   const handleCloseTarget = () => {
@@ -60,6 +62,7 @@ const TextEditor = () => {
     if (actionName === 'Copy To clipboard') {
       copytoClipBoard(urduText)
     } else if (actionName === 'Open Keyboard') {
+        setUrduText(`${urduText} `);
       setShouldOpenDialog(true);
     }
 
