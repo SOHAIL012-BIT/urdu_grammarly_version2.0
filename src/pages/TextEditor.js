@@ -5,8 +5,12 @@ import { faker } from '@faker-js/faker';
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography, TextField, Button, Stack, Tooltip } from '@mui/material';
 
+import Box from '@mui/material/Box';
+import Keyboard from "react-simple-keyboard";
 
-
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
 import {
     AppTasks,
     AppNewsUpdate,
@@ -78,6 +82,17 @@ const TextEditor = () => {
         }
         console.log("Change in text")
     }, [urduText])
+
+
+
+    const actions = [
+        { icon:<Iconify icon="material-symbols:keyboard-alt-outline" color="#323439" vFlip/>, name: 'Open Keyboard' },
+        { icon:<Iconify icon="foundation:page-export-pdf" color="#323439" vFlip/>, name: 'Export PDF' },
+        { icon: <Iconify icon="pajamas:copy-to-clipboard" color="#323439" vFlip />, name: 'Copy To clipboard' },
+        // { icon: <Iconify icon="eva:close-fill" color="red" />, name: 'Share' },
+      ];
+      
+
     return (
         <>
             <Helmet>
@@ -254,6 +269,25 @@ const TextEditor = () => {
                 {shouldOpenDialog &&
                     <OnScreenKeyboard open={shouldOpenDialog} closemodal={handleCloseTarget} inputText={urduText} sendDataToParent={handleDataFromChild} />
                 }
+
+
+{/* <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}> */}
+      <SpeedDial
+        ariaLabel="SpeedDial openIcon example"
+        sx={{ position: 'absolute', bottom: 16, right: 16 ,}}
+        icon={<SpeedDialIcon openIcon={<Iconify icon="mdi:pencil-circle" color="white" vFlip />} style={{backgroundColor:"#323439"}} />}
+        // icon={<Iconify icon="eva:close-fill" color="red" />}
+        
+      >
+        {actions.map((action) => (
+          <SpeedDialAction
+            key={action.name}
+            icon={action.icon}
+            tooltipTitle={action.name}
+          />
+        ))}
+      </SpeedDial>
+    {/* </Box> */}
 
             </Container>
         </>
