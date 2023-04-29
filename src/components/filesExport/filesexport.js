@@ -1,3 +1,6 @@
+import {toaster} from "../toaster/toaster"
+
+
 
 const getFormattedDateTime=()=> {
     const date = new Date();
@@ -11,11 +14,11 @@ const getFormattedDateTime=()=> {
     return formattedDateTime;
   }
   
-  const fileName = `UrduGrammarly_${getFormattedDateTime()}.doc`;
+  const fileName = `UrduGrammarly_${getFormattedDateTime()}`;
   
 
 
-const saveDocAsFile=(urduText)=> {
+export function saveDocAsFile(urduText){
     const textToSave = urduText;
     const textToSaveAsBlob = new Blob([textToSave], { type: 'text/Doc' });
     const textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
@@ -34,7 +37,7 @@ const saveDocAsFile=(urduText)=> {
     downloadLink.click();
   }
 
-  const savePdfAsFile=(urduText)=> {
+ export function savePdfAsFile(urduText){
     const textToSave = urduText;
     const textToSaveAsBlob = new Blob([textToSave], { type: 'application/pdf' });
     const textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
@@ -56,15 +59,21 @@ const saveDocAsFile=(urduText)=> {
     document.body.removeChild(event.target);
   }
 
-  const copytoClipBoard=(urduText)=>{
+ export const copytoClipBoard=(urduText)=>{
     navigator.clipboard
         .writeText(urduText)
         .then(() => {
-          console.log('Copied to clipboard:', urduText);
+            if(urduText!==''){
+                console.log('Copied to clipboard:', urduText);
+                toaster("Copied to clipboard", "success");
+            }else{
+                toaster("No text to copy", "info");
+            }
         })
         .catch((error) => {
           console.error('Error copying to clipboard:', error);
+          toaster("Error copying to clipboard", "info");
         });
   }
 
-  export default {saveDocAsFile,savePdfAsFile}
+//   export default {saveDocAsFile,savePdfAsFile,copytoClipBoard}

@@ -5,27 +5,23 @@ import { faker } from '@faker-js/faker';
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography, TextField, Button, Stack, Tooltip } from '@mui/material';
 
-import Box from '@mui/material/Box';
-import Keyboard from 'react-simple-keyboard';
+// import Box from '@mui/material/Box';
+// import Keyboard from 'react-simple-keyboard';
 
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
-import {
-  AppTasks,
-  AppNewsUpdate,
-  AppOrderTimeline,
-  AppCurrentVisits,
-  AppWebsiteVisits,
-  AppTrafficBySite,
-  AppWidgetSummary,
-  AppCurrentSubject,
-  AppConversionRates,
-} from '../sections/@dashboard/app';
+import { AppConversionRates,} from '../sections/@dashboard/app';
+
 
 // components
 import Iconify from '../components/iconify';
 import OnScreenKeyboard from '../components/onScreenKeyboard/OnScreenKeyboard';
+
+
+// Files functions
+import  {saveDocAsFile,savePdfAsFile,copytoClipBoard} from "../components/filesExport/filesexport"
+
 
 const urduSentence = [
   '.ہمارے اے آئی پاورڈ جملوں اور الفاظ کی تجویز کرنے والے ٹول کے ساتھ اپنی لکھائی کی صلاحیت کو کھولیں.',
@@ -67,63 +63,19 @@ const TextEditor = () => {
     // event.preventDefault();
     console.log(`Clicked ${actionName}`);
     if (actionName === 'Copy To clipboard') {
-      navigator.clipboard
-        .writeText(urduText)
-        .then(() => {
-          console.log('Copied to clipboard:', urduText);
-        })
-        .catch((error) => {
-          console.error('Error copying to clipboard:', error);
-        });
+      copytoClipBoard(urduText)
     } else if (actionName === 'Open Keyboard') {
       setShouldOpenDialog(true);
     }
 
     if (actionName === 'Export PDF') {
-      savePdfAsFile();
+      savePdfAsFile(urduText);
     } else if (actionName === 'Export Word Doc') {
-      saveDocAsFile();
+      saveDocAsFile(urduText);
     }
   };
 
-  function saveDocAsFile() {
-    const textToSave = urduText;
-    const textToSaveAsBlob = new Blob([textToSave], { type: 'text/Doc' });
-    const textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
-    // var fileNameToSaveAs = document.getElementById("inputFileNameToSaveAs").value;
-    const fileNameToSaveAs = 'TypingTester.doc';
-
-    const downloadLink = document.createElement('a');
-    downloadLink.download = fileNameToSaveAs;
-    downloadLink.innerHTML = 'Download File';
-    downloadLink.href = textToSaveAsURL;
-    downloadLink.onclick = destroyClickedElement;
-    downloadLink.style.display = 'none';
-    document.body.appendChild(downloadLink);
-
-    downloadLink.click();
-  }
-
-  function savePdfAsFile() {
-    const textToSave = urduText;
-    const textToSaveAsBlob = new Blob([textToSave], { type: 'application/pdf' });
-    const textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
-    const fileNameToSaveAs = 'TypingTester.pdf';
-
-    const downloadLink = document.createElement('a');
-    downloadLink.download = fileNameToSaveAs;
-    downloadLink.innerHTML = 'Download File';
-    downloadLink.href = textToSaveAsURL;
-    downloadLink.onclick = destroyClickedElement;
-    downloadLink.style.display = 'none';
-    document.body.appendChild(downloadLink);
-
-    downloadLink.click();
-  }
-
-  function destroyClickedElement(event) {
-    document.body.removeChild(event.target);
-  }
+  
 
 
 
