@@ -4,30 +4,90 @@ import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography, TextField, Button ,Stack,Tooltip} from '@mui/material';
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
 
 import { AppConversionRates } from '../sections/@dashboard/app';
 import Scrollbar from '../components/scrollbar';
 
+import OnScreenKeyboard from '../components/onScreenKeyboard/OnScreenKeyboard';
 
+
+// Files functions
+import  {saveDocAsFile,savePdfAsFile,copytoClipBoard} from "../components/filesExport/filesexport"
 // components
 import Iconify from '../components/iconify';
 
 // const urduWords = []
 
 const GrammarChecking = () => {
+    
     const theme = useTheme();
+    const [shouldOpenDialog, setShouldOpenDialog] = useState(false);
     const [urduText, setUrduText] = useState('');
-
+  
+   
+    const handleTextChange = (event) => {
+      setUrduText(event.target.value);
+    };
+  
+    const handleDataFromChild = (data) => {
+      setUrduText(data);
+    };
+    const handleCloseTarget = () => {
+    
+      setShouldOpenDialog(false);
+    };
+    console.log('Urdu Text is', urduText.length);
+  
+  
+    const handleSpeedDialClick = (actionName) => {
+  
+      console.log(`Clicked ${actionName}`);
+      if (actionName === 'Copy To clipboard') {
+        copytoClipBoard(urduText)
+      } else if (actionName === 'Open Keyboard') {
+        setShouldOpenDialog(true);
+      }
+  
+      if (actionName === 'Export PDF') {
+        savePdfAsFile(urduText);
+      } else if (actionName === 'Export Word Doc') {
+        saveDocAsFile(urduText);
+      }
+    };
+  
+    
 
     const handleButtonClick = (word) => {
         // setUrduText(urduText + ' ' + word); // Append clicked word to current urduText
         // setUrduText(`${urduText}  ${word}`);
     };
-    const handleTextChange = (event) => {
-        setUrduText(event.target.value);
-    }
 
     console.log("Urdu Text is", urduText)
+
+    const actions = [
+        {
+          icon: <Iconify icon="material-symbols:keyboard-alt-outline" color="#323439" vFlip width="80%" height="80%" />,
+          name: 'Open Keyboard',
+        },
+        {
+          icon: <Iconify icon="foundation:page-export-pdf" color="#323439" vFlip width="80%" height="90%" />,
+          name: 'Export PDF',
+        },
+        {
+          icon: <Iconify icon="carbon:document-word-processor-reference" color="#323439" vFlip width="80%" height="90%" />,
+          name: 'Export Word Doc',
+        },
+        {
+          icon: <Iconify icon="pajamas:copy-to-clipboard" color="#323439" vFlip width="80%" height="80%" />,
+          name: 'Copy To clipboard',
+        },
+        // { icon: <Iconify icon="eva:close-fill" color="red" />, name: 'Share' },
+      ];
+    
+
 
     return (
         <>
@@ -116,6 +176,54 @@ const GrammarChecking = () => {
 
                 </Grid>
                 </Scrollbar>
+
+
+
+                <SpeedDial
+          ariaLabel="SpeedDial openIcon example"
+          sx={{
+            position: 'fixed',
+            bottom: 20,
+            right: 20,
+            '& .MuiSpeedDial-fab': {
+              backgroundColor: '#323439',
+              '&:hover': {
+                backgroundColor: '#323439',
+              },
+              '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
+                transform: 'translate(25%, 25%)',
+              },
+              '&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight': {
+                transform: 'translate(-25%, -25%)',
+              },
+              '&.MuiSpeedDial-open': {
+                backgroundColor: '#323439',
+              },
+            },
+            zIndex: 1000,
+          }}
+          icon={<SpeedDialIcon />}
+          // onClick={(event) => handleSpeedDialClick(event, action.name)}
+        >
+          {actions.map((action) => (
+            <SpeedDialAction
+              key={action.name}
+              icon={action.icon}
+              tooltipTitle={action.name}
+              // onClick={handleSpeedDialClick(action.name)}
+              onClick={() => handleSpeedDialClick(action.name)}
+            />
+          ))}
+        </SpeedDial>
+
+        {shouldOpenDialog && (
+          <OnScreenKeyboard
+            open={shouldOpenDialog}
+            closemodal={handleCloseTarget}
+            inputText={urduText}
+            sendDataToParent={handleDataFromChild}
+          />
+        )}
             </Container>
         </>
     )

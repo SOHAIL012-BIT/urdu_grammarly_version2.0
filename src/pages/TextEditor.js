@@ -38,7 +38,6 @@ const TextEditor = () => {
   const [endOfSentence, setEndOfSentence] = useState(false);
 
   const handleButtonClick = (word) => {
-    // setUrduText(urduText + ' ' + word); // Append clicked word to current urduText
     setUrduText(`${urduText}  ${word}`);
   };
   const handleTextChange = (event) => {
@@ -46,21 +45,17 @@ const TextEditor = () => {
   };
 
   const handleDataFromChild = (data) => {
-    // setUrduText(prevData => [...prevData, ...data]);
-    // setUrduText(`${urduText}  ${data}`);
     setUrduText(data);
   };
   const handleCloseTarget = () => {
-    // updatePageData();
+  
     setShouldOpenDialog(false);
   };
   console.log('Urdu Text is', urduText.length);
 
-  // const handleSpeedDialClick=(name)=>{
-  //     console.log("Action is",name)
-  // }
+
   const handleSpeedDialClick = (actionName) => {
-    // event.preventDefault();
+
     console.log(`Clicked ${actionName}`);
     if (actionName === 'Copy To clipboard') {
       copytoClipBoard(urduText)
@@ -121,30 +116,6 @@ const TextEditor = () => {
           <Typography variant="h4" color="#323439">
             Urdu Text Editor
           </Typography>
-          {/* <Button
-
-                        variant="contained"
-                        color="primary"
-                        size="medium"
-                        style={{
-                            margin: "30px 10px 10px 10px",
-                            direction: 'rtl', // Set text direction to right-to-left
-                            textAlign: 'right', // Set text alignment to right
-                            fontFamily: 'Noto Nastaliq Urdu',
-                            letterSpacing: '0.08rem',
-                            // fontFamily: 'Noto Naskh Arabic',
-                            fontSize: "16pt",
-                            // backgroundColor:"#bbbdc4",
-                            // color:"#323439",
-                            color: "ffffff",
-                            backgroundColor: "#323439",
-                        }}
-
-                        // onClick={() => handleButtonClick()}
-                        onClick={() => setShouldOpenDialog(true)}
-                    >
-                        Export as PDF
-                    </Button> */}
           <Typography variant="h4" color="#323439">
             اُردو لکھائی محرر
           </Typography>
@@ -276,8 +247,8 @@ const TextEditor = () => {
           ariaLabel="SpeedDial openIcon example"
           sx={{
             position: 'fixed',
-            bottom: 2,
-            right: 2,
+            bottom: 20,
+            right: 20,
             '& .MuiSpeedDial-fab': {
               backgroundColor: '#323439',
               '&:hover': {
@@ -317,53 +288,6 @@ const TextEditor = () => {
             sendDataToParent={handleDataFromChild}
           />
         )}
-
-        {/* <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}> */}
-        {/* <SpeedDial
-        ariaLabel="SpeedDial openIcon example"
-        // sx={{ position: 'absolute', bottom: 16, right: 16 ,}}
-        // sx={{
-        //     position: 'fixed',
-        //     bottom: 0,
-        //     right: 0,
-        //     backgroundColor: 'red',
-        //     zIndex: 1000,
-        //   }}
-        sx={{
-            position: 'fixed',
-            bottom: 2,
-            right: 2,
-            
-            '& .MuiSpeedDial-fab': {
-              backgroundColor: '#323439',
-              '&:hover': {
-                backgroundColor: '#323439',
-              },
-              '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
-                transform: 'translate(25%, 25%)',
-              },
-              '&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight': {
-                transform: 'translate(-25%, -25%)',
-              },
-              '&.MuiSpeedDial-open': {
-                backgroundColor: '#323439',
-              },
-            },
-            zIndex: 1000,
-          }}
-        // icon={<SpeedDialIcon openIcon={<Iconify icon="mdi:pencil-circle" color="white" width="100%" height="100%" />} />}
-        icon={<SpeedDialIcon />}        
-      >
-        {actions.map((action) => (
-          <SpeedDialAction
-            key={action.name}
-            icon={action.icon}
-            tooltipTitle={action.name}
-            // onClick={handleSpeedDialClick(action.name)}
-          />
-        ))}
-      </SpeedDial> */}
-        {/* </Box> */}
       </Container>
     </>
   );

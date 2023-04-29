@@ -34,15 +34,10 @@ export default function DashboardAppPage() {
 
 
   const handleCardClick = (event) => {
-    // const divId = event.target.id;
     const divId = event.currentTarget.id;
-    // const redirectURL="/dashboard/"+
     const redirectURL = `/dashboard/${divId}`;
-    // history.push({
-    //   pathname:redirectURL
-    // })
+ 
     navigate(redirectURL);
-    // alert(redirectURL)
    
 
   }
