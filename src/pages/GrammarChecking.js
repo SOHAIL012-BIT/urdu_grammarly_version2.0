@@ -15,7 +15,7 @@ import OnScreenKeyboard from '../components/onScreenKeyboard/OnScreenKeyboard';
 
 
 // Files functions
-import  {saveDocAsFile,savePdfAsFile,copytoClipBoard} from "../components/filesExport/filesexport"
+import  {saveDocAsFile,savePdfAsFile,copytoClipBoard} from "../utils/filesexport"
 // components
 import Iconify from '../components/iconify';
 

@@ -1,4 +1,4 @@
-import {toaster} from "../toaster/toaster"
+import {toaster} from "./toaster"
 
 
 

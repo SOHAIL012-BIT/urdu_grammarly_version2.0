@@ -12,7 +12,7 @@ import { AppConversionRates, } from '../sections/@dashboard/app';
 // components
 import OnScreenKeyboard from '../components/onScreenKeyboard/OnScreenKeyboard';
 // Files functions
-import  {saveDocAsFile,savePdfAsFile,copytoClipBoard} from "../components/filesExport/filesexport"
+import  {saveDocAsFile,savePdfAsFile,copytoClipBoard} from "../utils/filesexport"
 import Iconify from '../components/iconify';
 
 const urduWords = [

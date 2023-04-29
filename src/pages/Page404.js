@@ -22,10 +22,13 @@ export default function Page404() {
   return (
     <>
       <Helmet>
-        <title> 404 Page Not Found | Minimal UI </title>
+        <title> Page Not Found | iUrdu Grammarly</title>
       </Helmet>
 
-      <Container>
+      <Container style={{
+        backgroundColor: "ffffff",
+        color: "#323439",
+      }}>
         <StyledContent sx={{ textAlign: 'center', alignItems: 'center' }}>
           <Typography variant="h3" paragraph>
             Sorry, page not found!
@@ -42,7 +45,10 @@ export default function Page404() {
             sx={{ height: 260, mx: 'auto', my: { xs: 5, sm: 10 } }}
           />
 
-          <Button to="/" size="large" variant="contained" component={RouterLink}>
+          <Button to="/" size="large" variant="contained" component={RouterLink} style={{
+            color: "ffffff",
+            backgroundColor: "#323439",
+          }}>
             Go to Home
           </Button>
         </StyledContent>
