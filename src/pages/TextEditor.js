@@ -69,12 +69,37 @@ const TextEditor = () => {
         // setUrduText(prevData => [...prevData, ...data]);
         // setUrduText(`${urduText}  ${data}`);
         setUrduText(data)
-      }
+    }
     const handleCloseTarget = () => {
         // updatePageData();
         setShouldOpenDialog(false);
     }
     console.log("Urdu Text is", urduText.length)
+
+
+    // const handleSpeedDialClick=(name)=>{
+    //     console.log("Action is",name)
+    // }
+    const handleSpeedDialClick = (actionName) => {
+        // event.preventDefault();
+        console.log(`Clicked ${actionName}`);
+        if (actionName === 'Copy To clipboard') {
+            navigator.clipboard.writeText(urduText)
+              .then(() => {
+                console.log('Copied to clipboard:', urduText);
+              })
+              .catch((error) => {
+                console.error('Error copying to clipboard:', error);
+              });
+          } else if (actionName === 'Open Keyboard') {
+            setShouldOpenDialog(true);
+          }
+
+        if(actionName==="Open Keyboard"){
+            setShouldOpenDialog(true)
+        }
+    };
+
 
     useEffect(() => {
         if (urduText.length > 50) {
@@ -86,12 +111,12 @@ const TextEditor = () => {
 
 
     const actions = [
-        { icon:<Iconify icon="material-symbols:keyboard-alt-outline" color="#323439" vFlip/>, name: 'Open Keyboard' },
-        { icon:<Iconify icon="foundation:page-export-pdf" color="#323439" vFlip/>, name: 'Export PDF' },
-        { icon: <Iconify icon="pajamas:copy-to-clipboard" color="#323439" vFlip />, name: 'Copy To clipboard' },
+        { icon: <Iconify icon="material-symbols:keyboard-alt-outline" color="#323439" vFlip width="80%" height="80%" />, name: 'Open Keyboard' },
+        { icon: <Iconify icon="foundation:page-export-pdf" color="#323439" vFlip width="80%" height="90%" />, name: 'Export PDF' },
+        { icon: <Iconify icon="pajamas:copy-to-clipboard" color="#323439" vFlip width="80%" height="80%" />, name: 'Copy To clipboard' },
         // { icon: <Iconify icon="eva:close-fill" color="red" />, name: 'Share' },
-      ];
-      
+    ];
+
 
     return (
         <>
@@ -107,7 +132,7 @@ const TextEditor = () => {
                     <Typography variant="h4" color="#323439">
                         Urdu Text Editor
                     </Typography>
-                    <Button
+                    {/* <Button
 
                         variant="contained"
                         color="primary"
@@ -130,7 +155,7 @@ const TextEditor = () => {
                         onClick={() => setShouldOpenDialog(true)}
                     >
                         Export as PDF
-                    </Button>
+                    </Button> */}
                     <Typography variant="h4" color="#323439">
                         اُردو لکھائی محرر
                     </Typography>
@@ -266,28 +291,98 @@ const TextEditor = () => {
                     </Grid>
 
                 </Grid>
+
+
+
+                <SpeedDial
+                    ariaLabel="SpeedDial openIcon example"
+                    sx={{
+                        position: 'fixed',
+                        bottom: 2,
+                        right: 2,
+                        '& .MuiSpeedDial-fab': {
+                            backgroundColor: '#323439',
+                            '&:hover': {
+                                backgroundColor: '#323439',
+                            },
+                            '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
+                                transform: 'translate(25%, 25%)',
+                            },
+                            '&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight': {
+                                transform: 'translate(-25%, -25%)',
+                            },
+                            '&.MuiSpeedDial-open': {
+                                backgroundColor: '#323439',
+                            },
+                        },
+                        zIndex: 1000,
+                    }}
+                    icon={<SpeedDialIcon />}
+                    // onClick={(event) => handleSpeedDialClick(event, action.name)}
+                >
+                    {actions.map((action) => (
+                        <SpeedDialAction
+                            key={action.name}
+                            icon={action.icon}
+                            tooltipTitle={action.name}
+                            // onClick={handleSpeedDialClick(action.name)}
+                            onClick={() => handleSpeedDialClick(action.name)}
+                        />
+                    ))}
+                </SpeedDial>
+
                 {shouldOpenDialog &&
                     <OnScreenKeyboard open={shouldOpenDialog} closemodal={handleCloseTarget} inputText={urduText} sendDataToParent={handleDataFromChild} />
                 }
 
 
-{/* <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}> */}
-      <SpeedDial
+                {/* <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}> */}
+                {/* <SpeedDial
         ariaLabel="SpeedDial openIcon example"
-        sx={{ position: 'absolute', bottom: 16, right: 16 ,}}
-        icon={<SpeedDialIcon openIcon={<Iconify icon="mdi:pencil-circle" color="white" vFlip />} style={{backgroundColor:"#323439"}} />}
-        // icon={<Iconify icon="eva:close-fill" color="red" />}
-        
+        // sx={{ position: 'absolute', bottom: 16, right: 16 ,}}
+        // sx={{
+        //     position: 'fixed',
+        //     bottom: 0,
+        //     right: 0,
+        //     backgroundColor: 'red',
+        //     zIndex: 1000,
+        //   }}
+        sx={{
+            position: 'fixed',
+            bottom: 2,
+            right: 2,
+            
+            '& .MuiSpeedDial-fab': {
+              backgroundColor: '#323439',
+              '&:hover': {
+                backgroundColor: '#323439',
+              },
+              '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
+                transform: 'translate(25%, 25%)',
+              },
+              '&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight': {
+                transform: 'translate(-25%, -25%)',
+              },
+              '&.MuiSpeedDial-open': {
+                backgroundColor: '#323439',
+              },
+            },
+            zIndex: 1000,
+          }}
+        // icon={<SpeedDialIcon openIcon={<Iconify icon="mdi:pencil-circle" color="white" width="100%" height="100%" />} />}
+        icon={<SpeedDialIcon />}        
       >
         {actions.map((action) => (
           <SpeedDialAction
             key={action.name}
             icon={action.icon}
             tooltipTitle={action.name}
+            // onClick={handleSpeedDialClick(action.name)}
           />
         ))}
-      </SpeedDial>
-    {/* </Box> */}
+      </SpeedDial> */}
+                {/* </Box> */}
+             
 
             </Container>
         </>
