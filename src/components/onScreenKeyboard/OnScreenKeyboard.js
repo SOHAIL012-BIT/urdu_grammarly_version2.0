@@ -153,7 +153,8 @@ const OnScreenKeyboard = ({ open, closemodal, inputText,sendDataToParent }) => {
         }}
         PaperProps={{
           style: { backgroundColor: '#323439' ,
-          fontSize:"14pt",                            
+          fontSize:"14pt",   
+          color:"#323439",                         
           fontFamily: 'Noto Nastaliq Urdu',
           boxShadow: `0px 0px 3px 0px #323439, 0px 0px 3px 0px #323439, 0px 0px 3px 0px #323439, 0px 0px 3px 0px #323439, 0px 0px 3px 0px #323439`,
           border: `0.5px solid #323439`,
