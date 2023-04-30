@@ -82,7 +82,9 @@ const TextEditor = () => {
     if (urduText.length > 50) {
       setEndOfSentence(true);
     }
-    console.log('Change in text');
+    // eslint-disable-next-line no-debugger
+    debugger
+    console.log('Change in text',urduText);
   }, [urduText]);
 
   const actions = [
