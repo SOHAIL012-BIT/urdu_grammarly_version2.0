@@ -12,9 +12,9 @@ const axiosInstance = axios.create({
   // Sending Request 
   axiosInstance.interceptors.request.use(
     (config) => {
-      debugger
      
-      var localStorage = getLocalTokens()
+      // const localStorage = getLocalTokens()
+      const localStorage="wewaawewwwrwrwre"
       if (localStorage !== null) {
         // config.headers["Authorization"] = 'Bearer ' + localStorage.token;  // for Spring Boot back-end
       //   config.headers["x-access-token"] = localStorage.token; // for Node.js Express back-end
@@ -39,7 +39,6 @@ const axiosInstance = axios.create({
       return res;
     },
     async (err) => {
-        debugger
       const originalConfig = err.config;
       console.log("err", err)
     //   if (originalConfig.url !== "/login" && originalConfig !== "/api/User/Logout"  && err.response) {

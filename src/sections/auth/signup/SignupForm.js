@@ -1,33 +1,69 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // @mui
-import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox } from '@mui/material';
+import { Stack, IconButton, InputAdornment, TextField,FormControl  } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // components
+import { toaster } from '../../../utils/toaster';
 import Iconify from '../../../components/iconify';
-
+// API Import 
+import {UserRegister} from '../../../services/AuthenticationServices'
 // ----------------------------------------------------------------------
-
+const InitialState = {
+  username: "",
+  email: "",
+  password: ""
+}
 export default function SignupForm() {
   const navigate = useNavigate();
-
+  const [state, setState] = useState(InitialState);
   const [showPassword, setShowPassword] = useState(false);
+  
 
   const handleClick = () => {
-    navigate('/dashboard', { replace: true });
+    console.log("User data is", state)
+    Register();
+    // navigate('/dashboard', { replace: true });
   };
+  const handleChange = ({ target: { name, value } }) => {
+    const temp = { ...state };
+    temp[name] = value;
+    setState(temp);
+  }
+  // Api Call Function
+  const Register=()=>{
+   
+   UserRegister(state).then(  ({ data }) => {
+          if (data.statusText==="Created") {
+              navigate("/login");
+          } else {
+             toaster(data.statusText, "error")
+          }
+        })
+        .catch(error => {
+           toaster("Something went wrong", "error")
+        })
+  }
 
+
+  
   return (
     <>
       <Stack spacing={3}>
 
-      <TextField name="name" label="User Name" />
-        <TextField name="email" label="Email address" />
+      <FormControl required>
+      <TextField name="name" label="User Name"   onChange={handleChange} required/>
+      </FormControl>
+
+
+        <TextField name="email" label="Email address" onChange={handleChange} required/>
 
         <TextField
           name="password"
           label="Password"
           type={showPassword ? 'text' : 'password'}
+          onChange={handleChange}
+          required
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">

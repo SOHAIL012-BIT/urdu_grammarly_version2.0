@@ -1,4 +1,4 @@
-import axiosInstance from 'axios.js';
+import axiosInstance from '../axios';
 // import {SECRET_KEY} from "config.js";
 // import Cookies from 'universal-cookie';
 
