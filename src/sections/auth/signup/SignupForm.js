@@ -52,11 +52,11 @@ export default function SignupForm() {
       <Stack spacing={3}>
 
       <FormControl required>
-      <TextField name="name" label="User Name"   onChange={handleChange} required/>
+      <TextField name="name" label="User Name"  onChange={handleChange} required/>
       </FormControl>
 
 
-        <TextField name="email" label="Email address" onChange={handleChange} required/>
+        <TextField name="email" label="Email address" type='email' onChange={handleChange} required/>
 
         <TextField
           name="password"

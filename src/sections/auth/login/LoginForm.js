@@ -4,28 +4,65 @@ import { useNavigate } from 'react-router-dom';
 import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // components
+import Cookies from "js-cookie";
+import { toaster } from '../../../utils/toaster';
 import Iconify from '../../../components/iconify';
+
+import {UserLogin} from '../../../services/AuthenticationServices'
+
+
 
 // ----------------------------------------------------------------------
 
+const InitialState = {
+  username: "",
+  password: ""
+}
 export default function LoginForm() {
   const navigate = useNavigate();
-
+  const [state, setState] = useState(InitialState);
   const [showPassword, setShowPassword] = useState(false);
 
+
   const handleClick = () => {
-    navigate('/dashboard', { replace: true });
+    console.log("User data is", state)
+    Login();
+    // navigate('/dashboard', { replace: true });
   };
+  const handleChange = ({ target: { name, value } }) => {
+    const temp = { ...state };
+    temp[name] = value;
+    setState(temp);
+  }
+  // Api Call Function
+  const Login=()=>{
+   // eslint-disable-next-line no-debugger
+    debugger
+    UserLogin(state).then(  ({ data }) => {
+          if (data.token) {
+            Cookies.set("jwToken", data.token);
+            localStorage.setItem('token', data.token);
+            navigate("/dashboard");
+          } else {
+             toaster("Invalid Credential or Something went wrong", "error")
+          }
+        })
+        .catch(error => {
+           toaster("Something went wrong", "error")
+        })
+  }
+
 
   return (
     <>
       <Stack spacing={3}>
-        <TextField name="email" label="Email address" />
+        <TextField name="username" label="User Name" onChange={handleChange} />
 
         <TextField
           name="password"
           label="Password"
           type={showPassword ? 'text' : 'password'}
+          onChange={handleChange} 
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
