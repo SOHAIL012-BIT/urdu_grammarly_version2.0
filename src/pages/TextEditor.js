@@ -43,10 +43,19 @@ const TextEditor = () => {
   const handleTextChange = (event) => {
     setUrduText(event.target.value);
   };
+  // const handleTextChange = (event) => {
+  //    // eslint-disable-next-line no-debugger
+  //    debugger
+  //   if (event.code === 'Space' || event.code === 'Tab') {
+  //     alert('hello');
+  //   }
+  //   setUrduText(event.target.value);
+  // };
+  
 
   const handleDataFromChild = (data) => {
-    // eslint-disable-next-line no-debugger
-    debugger
+    // // eslint-disable-next-line no-debugger
+    // debugger
     setUrduText(data);
   };
   const handleCloseTarget = () => {
@@ -73,17 +82,13 @@ const TextEditor = () => {
     }
   };
 
-  
-
-
-
-  
   useEffect(() => {
     if (urduText.length > 50) {
       setEndOfSentence(true);
     }
     // eslint-disable-next-line no-debugger
     debugger
+    
     console.log('Change in text',urduText);
   }, [urduText]);
 
