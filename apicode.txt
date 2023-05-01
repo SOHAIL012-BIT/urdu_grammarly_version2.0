@@ -1,0 +1,37 @@
+ const GetDSR = () => {
+
+
+    const DailySalesDataAPI = GetDailySalesReportExecutionByDistributorID;
+
+    ///debugger;
+    const updatedState = user.role_Name !== 'Admin'
+      ? { ...state, distributor_EncryptedID: user.admin_Id }
+      : { ...state };
+
+
+    setLoader(true);
+    ///debugger;
+    DailySalesDataAPI(updatedState).then(
+      ({ data }) => {
+        if (data.message === "List Fetched Successfully!") {
+          setDSRListData(data.data)
+          let dataobj = data.data
+          console.log("APi Data is", dataobj)
+          setTotals({ ...Totals, juiceTotal: dataobj[0].juiceTotal, KetchupTotals: dataobj[0].ketchupTotal, totalValue: dataobj[0].juiceTotal + dataobj[0].ketchupTotal, area: dataobj[0].area })
+
+
+        } else {
+          //////console.log(" here it is",DSRListData.length)
+          setDSRListData([])
+          setTotals(InitialTotal)
+          // toaster(data.message, "error")
+        }
+
+
+      })
+      .catch(function (error) {
+        //////console.log(error)
+        setDSRListData([])
+        toaster("Something went wrong", "error")
+      })
+  }
