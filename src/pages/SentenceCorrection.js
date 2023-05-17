@@ -12,7 +12,7 @@ import { AppConversionRates, } from '../sections/@dashboard/app';
 // components
 import OnScreenKeyboard from '../components/onScreenKeyboard/OnScreenKeyboard';
 // Files functions
-import  {saveDocAsFile,savePdfAsFile,copytoClipBoard} from "../utils/filesexport"
+import  {saveDocAsFile,savePdfAsFile,copytoClipBoard,StatusBar} from "../utils/filesexport"
 import Iconify from '../components/iconify';
 
 const urduWords = [
@@ -43,7 +43,7 @@ const SentenceCorrection = () => {
     };
     const handleCloseTarget = () => {
     
-      setShouldOpenDialog(false);
+      setShouldOpenDialog(false);    
     };
     console.log('Urdu Text is', urduText.length);
   
@@ -165,6 +165,7 @@ const SentenceCorrection = () => {
                             onChange={handleTextChange}
                         // Additional TextField props as needed
                         />
+                        <StatusBar text={urduText} /> 
                     </Grid>
                  
             

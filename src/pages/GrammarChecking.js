@@ -127,7 +127,7 @@ const GrammarChecking = () => {
                             onChange={handleTextChange}
                         // Additional TextField props as needed
                         />
-                        <StatusBar></StatusBar>
+                         <StatusBar text={urduText} /> 
                     </Grid>
                 </Grid>
                 <Grid container spacing={3} alignItems="center" justifyContent="center" style={{

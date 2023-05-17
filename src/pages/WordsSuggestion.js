@@ -14,7 +14,7 @@ import OnScreenKeyboard from '../components/onScreenKeyboard/OnScreenKeyboard';
 
 
 // Files functions
-import  {saveDocAsFile,savePdfAsFile,copytoClipBoard} from "../utils/filesexport"
+import  {saveDocAsFile,savePdfAsFile,copytoClipBoard,StatusBar} from "../utils/filesexport"
 
 
 // components
@@ -174,6 +174,7 @@ const WordsSuggestion = () => {
                             onChange={handleTextChange}
                         // Additional TextField props as needed
                         />
+                        <StatusBar text={urduText} /> 
                     </Grid>
                  
             
