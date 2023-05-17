@@ -15,7 +15,7 @@ import OnScreenKeyboard from '../components/onScreenKeyboard/OnScreenKeyboard';
 
 
 // Files functions
-import  {saveDocAsFile,savePdfAsFile,copytoClipBoard} from "../utils/filesexport"
+import  {saveDocAsFile,savePdfAsFile,copytoClipBoard,StatusBar} from "../utils/filesexport"
 // components
 import Iconify from '../components/iconify';
 
@@ -127,6 +127,7 @@ const GrammarChecking = () => {
                             onChange={handleTextChange}
                         // Additional TextField props as needed
                         />
+                        <StatusBar></StatusBar>
                     </Grid>
                 </Grid>
                 <Grid container spacing={3} alignItems="center" justifyContent="center" style={{

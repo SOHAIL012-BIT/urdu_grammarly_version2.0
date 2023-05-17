@@ -1,4 +1,63 @@
+import React, {useState,useEffect} from 'react';
+import { Grid,IconButton  } from '@material-ui/core';
 import {toaster} from "./toaster"
+
+export function StatusBar({ text }) {
+  // const { speak } = useSpeechSynthesis();
+  const [wordCount, setWordCount] = useState(0);
+  const [charCount, setCharCount] = useState(0);
+  const [readingTime, setReadingTime] = useState(0);
+  const [speakingTime, setSpeakingTime] = useState(0);
+
+  useEffect(() => {
+    // Calculate word count
+    const words = text.trim().split(/\s+/);
+    setWordCount(words.length);
+
+    // Calculate character count
+    const chars = text.trim().length;
+    setCharCount(chars);
+
+    // Calculate reading time (assumes average reading speed of 200 words per minute)
+    const minutes = words.length / 200;
+    setReadingTime(Math.ceil(minutes));
+
+    // Calculate speaking time (assumes average speaking speed of 125 words per minute)
+    const speakingMinutes = words.length / 125;
+    setSpeakingTime(Math.ceil(speakingMinutes));
+  }, [text]);
+
+  // const handleSpeakClick = () => {
+  //   if (text.trim() !== '') {
+  //     speak({ text });
+  //   }
+  // };
+
+
+  return (
+    <Grid container alignItems="center" justify="space-between" className="status-bar" style={{
+      backgroundColor: '#323439',
+      padding: '10px',
+      marginTop: '.5rem',
+      fontSize: '14px',
+      fontWeight: 'bold',
+      borderRadius: '5px',
+      color: "#ffffff",
+      boxShadow: "#323439 1.95px 1.95px 2.6px",
+
+    }}>
+      <Grid item>{`${wordCount} words`}</Grid>
+      <Grid item>{`${charCount} characters`}</Grid>
+      <Grid item>{`${readingTime} min read`}</Grid>
+      <Grid item>{`${speakingTime} min speak`}</Grid>
+      {/* <Grid item>
+        <IconButton onClick={handleSpeakClick}>
+          <VolumeUp />
+        </IconButton>
+       </Grid>  */}
+    </Grid>
+  );
+}
 
 
 
