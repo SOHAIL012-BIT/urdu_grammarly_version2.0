@@ -104,13 +104,7 @@ const OnScreenKeyboard = ({ open, closemodal, inputText, sendDataToParent }) => 
   const keyboard = useRef(null);
 
   const onChange = (inputkey) => {
-    // eslint-disable-next-line no-debugger
-    //  debugger
-    // // setInput(inputkey);
-    // setInput(`${input}  ${inputkey}`)
-    // // console.log("Input changed", input);
-    //  // eslint-disable-next-line no-debugger
-    //  debugger
+     console.log("ghoof")
   };
 
   const onKeyPress = (button) => {
@@ -131,19 +125,13 @@ const OnScreenKeyboard = ({ open, closemodal, inputText, sendDataToParent }) => 
     }else if (button === '{tab}') {
       setInput(`${input}  `);
     } else {
-      // eslint-disable-next-line no-debugger
-      // debugger;
-      // setInput("inputkey");
+     
       setInput(`${input}${button}`);
-      // console.log("Input changed", input);
-      // eslint-disable-next-line no-debugger
-      // debugger;
+      
     }
   };
 
   useEffect(() => {
-    // eslint-disable-next-line no-debugger
-    debugger;
     sendDataToParent(input);
     // setInput(inputText)
   }, [input]);
