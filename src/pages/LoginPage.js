@@ -64,11 +64,12 @@ export default function LoginPage() {
 
         {mdUp && (
           <StyledSection style={{backgroundColor:"#323439", color:"#ffffff"}}>
-             <img src={dashboardLogo} alt="login" style={{position:"relative", bottom:150,width:"50%",marginLeft:"auto",marginRight:"auto"}} />
+             <img src={dashboardLogo} alt="login" style={{position:"relative", top:10,width:"50%",marginLeft:"auto",marginRight:"auto"}} />
             <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
               Hi, Welcome Back
             </Typography>
-            <img src="/assets/illustrations/illustration_login.png" alt="login" />
+            {/* <img src="/assets/illustrations/illustration_login.png" alt="login" /> */}
+            <img src="/assets/illustrations/banner.png" alt="login" style={{margin:"auto"}}/>
             {/* <img src="/assets/illustrations/BUKC.png" alt="login" /> */}
           </StyledSection>
         )}

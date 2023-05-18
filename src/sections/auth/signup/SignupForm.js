@@ -82,11 +82,11 @@ export default function SignupForm() {
   return (
     <>
       <Stack spacing={3}>
-        <FormControl required>
-          <TextField name="username" label="User Name" onChange={handleChange} required />
+        <FormControl required autoComplete="off">
+          <TextField name="username" label="User Name" onChange={handleChange} required  autoComplete="off"/>
         </FormControl>
 
-        <TextField name="email" label="Email address" type="email" onChange={handleChange} required />
+        <TextField name="email" label="Email address" type="email" onChange={handleChange} required  autoComplete="off" />
 
         <TextField
           name="password"
@@ -103,6 +103,7 @@ export default function SignupForm() {
               </InputAdornment>
             ),
           }}
+          autoComplete="off"
         />
       </Stack>
 
