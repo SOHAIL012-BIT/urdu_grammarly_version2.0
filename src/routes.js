@@ -15,7 +15,14 @@ import GrammarChecking from './pages/GrammarChecking';
 import SentenceCorrection from './pages/SentenceCorrection';
 import TextEditor from './pages/TextEditor';
 
+
 // ----------------------------------------------------------------------
+
+// --------------------website------------------
+
+import Aboutus from './websitepages/AboutUs'
+
+
 
 export default function Router() {
   const routes = useRoutes([
@@ -36,6 +43,10 @@ export default function Router() {
       ],
     },
     {
+      path: '/AboutUS',
+      element: <Aboutus />,
+    },
+    {
       path: 'login',
       element: <LoginPage />,
     },
@@ -46,7 +57,8 @@ export default function Router() {
     {
       element: <SimpleLayout />,
       children: [
-        { element: <Navigate to="/dashboard/app" />, index: true },
+        // { element: <Navigate to="/dashboard/app" />, index: true },
+        { element: <Navigate to="/AboutUS" />, index: true },
         { path: '404', element: <Page404 /> },
         { path: '*', element: <Navigate to="/404" /> },
       ],
