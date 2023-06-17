@@ -56,7 +56,7 @@ const WordsSuggestion = () => {
         setSuggestedWords(data.result)
           console.log("Data is",data)
       } else {
-         toaster("Invalid Credential or Something went wrong", "error")
+         toaster(data.message, "error")
       }
     })
     .catch(error => {
