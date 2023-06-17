@@ -27,8 +27,8 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(2),
     },
     bannerImage: {
-        maxWidth: '100%',
-        height: 'auto',
+        maxWidth: '80%',
+        height: '80%',
     },
     columnContainer: {
         marginBottom: theme.spacing(4),

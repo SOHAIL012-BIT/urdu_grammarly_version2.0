@@ -12,18 +12,20 @@ export function StatusBar({ text }) {
   useEffect(() => {
     // Calculate word count
     const words = text.trim().split(/\s+/);
-    setWordCount(words.length);
+
+    console.log("WOrds Length is",text.length)
+    setWordCount((text.length)===0?0:words.length);
 
     // Calculate character count
     const chars = text.trim().length;
     setCharCount(chars);
 
     // Calculate reading time (assumes average reading speed of 200 words per minute)
-    const minutes = words.length / 200;
+    const minutes =(text.length)===0?0: words.length / 200;
     setReadingTime(Math.ceil(minutes));
 
     // Calculate speaking time (assumes average speaking speed of 125 words per minute)
-    const speakingMinutes = words.length / 125;
+    const speakingMinutes =(text.length)===0?0: words.length / 125;
     setSpeakingTime(Math.ceil(speakingMinutes));
   }, [text]);
 
