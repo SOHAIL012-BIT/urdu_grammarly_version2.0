@@ -16,7 +16,7 @@ import  {saveDocAsFile,savePdfAsFile,copytoClipBoard,StatusBar} from "../utils/f
 import Iconify from '../components/iconify';
 
 const urduWords = [
-    '.ہمارے اے آئی پاورڈ جملوں اور الفاظ کی تجویز کرنے والے ٹول کے ساتھ اپنی لکھائی کی صلاحیت کو کھولیں.',
+    '-ہمارے اے آئی پاورڈ جملوں اور الفاظ کی تجویز کرنے والے ٹول کے ساتھ اپنی لکھائی کی صلاحیت کو کھولیں',
 ];
 // const urduWords = []
 
@@ -38,14 +38,15 @@ const SentenceCorrection = () => {
       setUrduText(event.target.value);
     };
   
-    const handleDataFromChild = (data) => {
+    const handleDataFromChild = (data,button) => {
+      console.log("In Parent Data fron Child Button is",button)
       setUrduText(data);
     };
     const handleCloseTarget = () => {
     
       setShouldOpenDialog(false);    
     };
-    console.log('Urdu Text is', urduText.length);
+  console.log('Lst Index is', urduText[urduText.length-1]);
   
   
     const handleSpeedDialClick = (actionName) => {

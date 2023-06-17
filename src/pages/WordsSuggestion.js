@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet-async';
 import { faker } from '@faker-js/faker';
 // @mui
+import CircularProgress from '@mui/material/CircularProgress';
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography, TextField, Button, Stack, Tooltip } from '@mui/material';
 import SpeedDial from '@mui/material/SpeedDial';
@@ -14,7 +15,7 @@ import OnScreenKeyboard from '../components/onScreenKeyboard/OnScreenKeyboard';
 
 
 // API Call
-import {wordSuggestion} from '../services/applicationServices'
+import { wordSuggestion } from '../services/applicationServices'
 
 // Files functions
 import { saveDocAsFile, savePdfAsFile, copytoClipBoard, StatusBar } from "../utils/filesexport"
@@ -41,42 +42,65 @@ const WordsSuggestion = () => {
   const [urduText, setUrduText] = useState('');
   const [suggestedWords, setSuggestedWords] = useState(urduWords)
   const theme = useTheme();
+  const [loader,setLoader]=useState(false);
   const [shouldOpenDialog, setShouldOpenDialog] = useState(false);
-  const [currentWord,setCurrentWord]=useState("");
+  const [currentContext, setCurrentContext] = useState("");
+  const [isSpace, setIsSpace] = useState(false)
 
 
   const wordSuggestions = () => {
-    alert("API Called")
-    wordSuggestion(urduText).then(  ({ data }) => {
+    // alert("API Called")
+    setLoader(true)
+    // eslint-disable-next-line no-debugger
+    debugger
+    wordSuggestion(currentContext).then(({ data }) => {
       // eslint-disable-next-line no-debugger
       debugger
-      if (data.message==="Words List Fected Successfully") {
+      if (data.message === "Words List Fected Successfully") {
         // eslint-disable-next-line no-debugger
         debugger
         setSuggestedWords(data.result)
-          console.log("Data is",data)
+        console.log("Data is", data)
+        setLoader(false)
       } else {
-         toaster(data.message, "error")
+        toaster(data.message, "error")
+        setLoader(false)
       }
     })
-    .catch(error => {
-      // eslint-disable-next-line no-debugger
-      debugger
-      console.log("Error is",error)
-       toaster("Something went wrong", "error")
-    })
+      .catch(error => {
+        // eslint-disable-next-line no-debugger
+        debugger
+        console.log("Error is", error)
+        toaster("Something went wrong", "error")
+        setLoader(false)
+      })
   }
 
 
-useEffect(()=>{
-  const words = urduText.split(' ');
+  useEffect(() => {
+    // const words = urduText.split(' ');
 
-  if (words.length > 0 && words[words.length - 1].length > 3) {
-    // callFunction();
-    console.log("Word is ",words[words.length - 1])
-    wordSuggestions()
-  }
-},[urduText])
+    // console.log("Orignal Text is",urduText)
+    // console.log("Splitted text is",words)
+    const words = urduText.split(' ').filter(word => word.trim() !== '');
+
+    console.log("Original Text is", urduText);
+    console.log("Split text is", words);
+
+    // eslint-disable-next-line no-debugger
+    // debugger
+    console.log("Last index length is", words[words.length - 1]?.length)
+    // eslint-disable-next-line no-debugger
+    // debugger
+    // if (words.length > 0 && words[words.length - 1].length > 3 && isSpace) {
+      if (words.length > 0 && isSpace) {
+      // callFunction();
+      console.log("Word is ", words[words.length - 1])
+      wordSuggestions()
+    }
+
+
+  }, [urduText])
 
 
   const handleButtonClick = (word) => {
@@ -85,13 +109,44 @@ useEffect(()=>{
     // wordSuggestions();
   };
   const handleTextChange = (event) => {
+    console.log("Event in Check is", event.target.value)
+    // if(event.target.value===" "){
+    //   console.log("Space CLicked")
+    //   setIsSpace(true)
+    // }
     setUrduText(event.target.value);
+    setCurrentContext(event.target.value);
   }
+
+  const handleKeyPress = (event) => {
+    console.log("Key pressed is ",event );
+
+    // code:"Space"
+    if (event.code === "Space"|| event.charCode===32) {
+      setIsSpace(true)
+    } else {
+      setIsSpace(false)
+    }
+
+    if(event.charCode===46 ||event.charCode===45){
+      setCurrentContext("");
+    }
+  }
+
+
   console.log("Urdu Text is", urduText)
 
-  const handleDataFromChild = (data) => {
+  const handleDataFromChild = (data, button) => {
+    console.log("In Parent Data fron Child Button is", button)
+    if(button==="{space}"|| button==="{tab}"){
+      // console.log("Hello g")
+      setIsSpace(true)
+    }
     setUrduText(data);
   };
+
+
+
   const handleCloseTarget = () => {
 
     setShouldOpenDialog(false);
@@ -161,7 +216,15 @@ useEffect(()=>{
             <Typography variant="h5" color="#323439">
               Suggested Words
             </Typography>
-            {suggestedWords.map((word) => (
+            {(suggestedWords.length === 0) ?
+            <Grid item xs={12} sm={12} md={4} direction="rtl">
+              {(loader)? <CircularProgress />:<Typography variant="h4" sx={{ mb: 5 }} color="primary">
+                No Suggested Words
+              </Typography>}
+              
+            </Grid>:
+            <div>
+             {suggestedWords.map((word) => (
               <Button
                 key={word}
                 variant="contained"
@@ -185,16 +248,11 @@ useEffect(()=>{
               >
                 {word}
               </Button>
-            ))}
+            ))}</div>
+          }
 
           </Grid>
-          {(suggestedWords.length === 0) &&
-            <Grid item xs={12} sm={12} md={4} direction="rtl">
-              <Typography variant="h4" sx={{ mb: 5 }} color="primary">
-                No Suggested Words
-              </Typography>
-            </Grid>
-          }
+         
 
           <Grid item xs={12} sm={12} md={8}>
             <TextField
@@ -211,6 +269,7 @@ useEffect(()=>{
               }}
               fullWidth
               onChange={handleTextChange}
+              onKeyPress={(e) => handleKeyPress(e)}
             // Additional TextField props as needed
             />
             <StatusBar text={urduText} />

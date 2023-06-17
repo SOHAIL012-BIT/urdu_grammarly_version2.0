@@ -101,6 +101,7 @@ function PaperComponent(props) {
 const OnScreenKeyboard = ({ open, closemodal, inputText, sendDataToParent }) => {
   const [layoutName, setLayoutName] = useState('default');
   const [input, setInput] = useState(inputText);
+  const [button, setButton] = useState('');
   const keyboard = useRef(null);
 
   const onChange = (inputkey) => {
@@ -122,6 +123,7 @@ const OnScreenKeyboard = ({ open, closemodal, inputText, sendDataToParent }) => 
       setInput(input.substring(0, input.length - 1));
     } else if (button === '{space}') {
       setInput(`${input} `);
+      setButton(button)
     }else if (button === '{tab}') {
       setInput(`${input}  `);
     } else {
@@ -132,7 +134,7 @@ const OnScreenKeyboard = ({ open, closemodal, inputText, sendDataToParent }) => 
   };
 
   useEffect(() => {
-    sendDataToParent(input);
+    sendDataToParent(input,button);
     // setInput(inputText)
   }, [input]);
 
