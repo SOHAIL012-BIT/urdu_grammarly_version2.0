@@ -9,179 +9,218 @@ import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 
 
-
+import { toaster } from '../utils/toaster';
 import OnScreenKeyboard from '../components/onScreenKeyboard/OnScreenKeyboard';
 
 
+// API Call
+import {wordSuggestion} from '../services/applicationServices'
+
 // Files functions
-import  {saveDocAsFile,savePdfAsFile,copytoClipBoard,StatusBar} from "../utils/filesexport"
+import { saveDocAsFile, savePdfAsFile, copytoClipBoard, StatusBar } from "../utils/filesexport"
 
 
 // components
 import Iconify from '../components/iconify';
 
 const urduWords = [
-    'سلام',
-    'خوش آمدید',
-    'شکریہ',
-    'معاف کیجیے',
-    'بہترین',
-    'کامیابی',
-    'پیار',
-    'خوبصورت',
-    'خوشگوار',
+  'سلام',
+  'خوش آمدید',
+  'شکریہ',
+  'معاف کیجیے',
+  'بہترین',
+  'کامیابی',
+  'پیار',
+  'خوبصورت',
+  'خوشگوار',
 
 ];
 // const urduWords = []
 
 const WordsSuggestion = () => {
-    const [urduText, setUrduText] = useState('');
-    const [suggestedWords, setSuggestedWords] = useState(urduWords)
-    const theme = useTheme();
-    const [shouldOpenDialog, setShouldOpenDialog] = useState(false);
-   
+  const [urduText, setUrduText] = useState('');
+  const [suggestedWords, setSuggestedWords] = useState(urduWords)
+  const theme = useTheme();
+  const [shouldOpenDialog, setShouldOpenDialog] = useState(false);
+  const [currentWord,setCurrentWord]=useState("");
 
-    const handleButtonClick = (word) => {
-        setUrduText(`${urduText}  ${word}`);
-    };
-    const handleTextChange = (event) => {
-        setUrduText(event.target.value);
+
+  const wordSuggestions = () => {
+    alert("API Called")
+    wordSuggestion(urduText).then(  ({ data }) => {
+      // eslint-disable-next-line no-debugger
+      debugger
+      if (data.message==="Words List Fected Successfully") {
+        // eslint-disable-next-line no-debugger
+        debugger
+        setSuggestedWords(data.result)
+          console.log("Data is",data)
+      } else {
+         toaster(data.message, "error")
+      }
+    })
+    .catch(error => {
+      // eslint-disable-next-line no-debugger
+      debugger
+      console.log("Error is",error)
+       toaster("Something went wrong", "error")
+    })
+  }
+
+
+useEffect(()=>{
+  const words = urduText.split(' ');
+
+  if (words.length > 0 && words[words.length - 1].length > 3) {
+    // callFunction();
+    console.log("Word is ",words[words.length - 1])
+    wordSuggestions()
+  }
+},[urduText])
+
+
+  const handleButtonClick = (word) => {
+    // setCurrentWord(word)
+    setUrduText(`${urduText}  ${word}`);
+    // wordSuggestions();
+  };
+  const handleTextChange = (event) => {
+    setUrduText(event.target.value);
+  }
+  console.log("Urdu Text is", urduText)
+
+  const handleDataFromChild = (data) => {
+    setUrduText(data);
+  };
+  const handleCloseTarget = () => {
+
+    setShouldOpenDialog(false);
+  };
+  console.log('Urdu Text is', urduText.length);
+
+
+  const handleSpeedDialClick = (actionName) => {
+
+    console.log(`Clicked ${actionName}`);
+    if (actionName === 'Copy To clipboard') {
+      copytoClipBoard(urduText)
+    } else if (actionName === 'Open Keyboard') {
+      setUrduText(`${urduText} `);
+      setShouldOpenDialog(true);
     }
 
-    console.log("Urdu Text is", urduText)
-    
-    const handleDataFromChild = (data) => {
-      setUrduText(data);
-    };
-    const handleCloseTarget = () => {
-    
-      setShouldOpenDialog(false);
-    };
-    console.log('Urdu Text is', urduText.length);
-  
-  
-    const handleSpeedDialClick = (actionName) => {
-  
-      console.log(`Clicked ${actionName}`);
-      if (actionName === 'Copy To clipboard') {
-        copytoClipBoard(urduText)
-      } else if (actionName === 'Open Keyboard') {
-        setUrduText(`${urduText} `);
-        setShouldOpenDialog(true);
-      }
-  
-      if (actionName === 'Export PDF') {
-        savePdfAsFile(urduText);
-      } else if (actionName === 'Export Word Doc') {
-        saveDocAsFile(urduText);
-      }
-    };
-  
-    console.log("Urdu Text is", urduText)
+    if (actionName === 'Export PDF') {
+      savePdfAsFile(urduText);
+    } else if (actionName === 'Export Word Doc') {
+      saveDocAsFile(urduText);
+    }
+  };
 
-    const actions = [
-        {
-          icon: <Iconify icon="material-symbols:keyboard-alt-outline" color="#323439" vFlip width="80%" height="80%" />,
-          name: 'Open Keyboard',
-        },
-        {
-          icon: <Iconify icon="foundation:page-export-pdf" color="#323439" vFlip width="80%" height="90%" />,
-          name: 'Export PDF',
-        },
-        {
-          icon: <Iconify icon="carbon:document-word-processor-reference" color="#323439" vFlip width="80%" height="90%" />,
-          name: 'Export Word Doc',
-        },
-        {
-          icon: <Iconify icon="pajamas:copy-to-clipboard" color="#323439" vFlip width="80%" height="80%" />,
-          name: 'Copy To clipboard',
-        },
-        // { icon: <Iconify icon="eva:close-fill" color="red" />, name: 'Share' },
-      ];
+  console.log("Urdu Text is", urduText)
 
-    return (
-        <>
-            <Helmet>
-                <title> Dashboard | Word Suggestion</title>
-            </Helmet>
+  const actions = [
+    {
+      icon: <Iconify icon="material-symbols:keyboard-alt-outline" color="#323439" vFlip width="80%" height="80%" />,
+      name: 'Open Keyboard',
+    },
+    {
+      icon: <Iconify icon="foundation:page-export-pdf" color="#323439" vFlip width="80%" height="90%" />,
+      name: 'Export PDF',
+    },
+    {
+      icon: <Iconify icon="carbon:document-word-processor-reference" color="#323439" vFlip width="80%" height="90%" />,
+      name: 'Export Word Doc',
+    },
+    {
+      icon: <Iconify icon="pajamas:copy-to-clipboard" color="#323439" vFlip width="80%" height="80%" />,
+      name: 'Copy To clipboard',
+    },
+    // { icon: <Iconify icon="eva:close-fill" color="red" />, name: 'Share' },
+  ];
 
-            <Container maxWidth="xl">
-                {/* <Typography variant="h4" sx={{ mb: 5 }}>
+  return (
+    <>
+      <Helmet>
+        <title> Dashboard | Word Suggestion</title>
+      </Helmet>
+
+      <Container maxWidth="xl">
+        {/* <Typography variant="h4" sx={{ mb: 5 }}>
                     Words Suggestion
                 </Typography> */}
-                <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-                    <Typography variant="h4" color="#323439">
-                        Words Suggestion
-                    </Typography>
-                    <Typography variant="h4" color="#323439">
-                    الفاظ کی تجویز
-                    </Typography>
-                </Stack>
-                <Grid container spacing={3} alignItems="center" justifyContent="center">
-                <Grid item xs={12} sm={12} md={4}>
-                <Typography variant="h5" color="#323439">
-                       Suggested Words
-                    </Typography>
-                {suggestedWords.map((word) => (
-                            <Button
-                                key={word}
-                                variant="contained"
-                                color="primary"
-                                size="medium"
-                                style={{
-                                    margin: "3px 10px 10px 10px",
-                                    direction: 'rtl', // Set text direction to right-to-left
-                                    textAlign: 'right', // Set text alignment to right
-                                    fontFamily: 'Noto Nastaliq Urdu',
-                                    letterSpacing: '0.08rem',
-                                    // fontFamily: 'Noto Naskh Arabic',
-                                    fontSize: "16pt",
-                                    // backgroundColor:"#bbbdc4",
-                                    // color:"#323439",
-                                    color: "ffffff",
-                                    backgroundColor: "#323439",
-                                }}
+        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+          <Typography variant="h4" color="#323439">
+            Words Suggestion
+          </Typography>
+          <Typography variant="h4" color="#323439">
+            الفاظ کی تجویز
+          </Typography>
+        </Stack>
+        <Grid container spacing={3} alignItems="center" justifyContent="center">
+          <Grid item xs={12} sm={12} md={4}>
+            <Typography variant="h5" color="#323439">
+              Suggested Words
+            </Typography>
+            {suggestedWords.map((word) => (
+              <Button
+                key={word}
+                variant="contained"
+                color="primary"
+                size="medium"
+                style={{
+                  margin: "3px 10px 10px 10px",
+                  direction: 'rtl', // Set text direction to right-to-left
+                  textAlign: 'right', // Set text alignment to right
+                  fontFamily: 'Noto Nastaliq Urdu',
+                  letterSpacing: '0.08rem',
+                  // fontFamily: 'Noto Naskh Arabic',
+                  fontSize: "16pt",
+                  // backgroundColor:"#bbbdc4",
+                  // color:"#323439",
+                  color: "ffffff",
+                  backgroundColor: "#323439",
+                }}
 
-                                onClick={() => handleButtonClick(word)}
-                            >
-                                {word}
-                            </Button>
-                        ))}
-                    
-                    </Grid>
-                        {(suggestedWords.length === 0) &&
-                    <Grid item xs={12} sm={12} md={4} direction="rtl">
-                            <Typography variant="h4" sx={{ mb: 5 }} color="primary">
-                                No Suggested Words
-                            </Typography>
-                    </Grid>
-                        }
+                onClick={() => handleButtonClick(word)}
+              >
+                {word}
+              </Button>
+            ))}
 
-                    <Grid item xs={12} sm={12} md={8}>
-                        <TextField
-                            label="اپنی اردو یہاں لکھیں۔"
-                            multiline
-                            rows={15}
-                            value={urduText}
-                            inputProps={{
-                                style: {
-                                    direction: 'rtl', // Set text direction to right-to-left
-                                    textAlign: 'right', // Set text alignment to right
-                                    fontFamily: 'Nastaliq', // Use a Urdu-specific font for better display
-                                },
-                            }}
-                            fullWidth
-                            onChange={handleTextChange}
-                        // Additional TextField props as needed
-                        />
-                        <StatusBar text={urduText} /> 
-                    </Grid>
-                 
-            
-                </Grid>
+          </Grid>
+          {(suggestedWords.length === 0) &&
+            <Grid item xs={12} sm={12} md={4} direction="rtl">
+              <Typography variant="h4" sx={{ mb: 5 }} color="primary">
+                No Suggested Words
+              </Typography>
+            </Grid>
+          }
+
+          <Grid item xs={12} sm={12} md={8}>
+            <TextField
+              label="اپنی اردو یہاں لکھیں۔"
+              multiline
+              rows={15}
+              value={urduText}
+              inputProps={{
+                style: {
+                  direction: 'rtl', // Set text direction to right-to-left
+                  textAlign: 'right', // Set text alignment to right
+                  fontFamily: 'Nastaliq', // Use a Urdu-specific font for better display
+                },
+              }}
+              fullWidth
+              onChange={handleTextChange}
+            // Additional TextField props as needed
+            />
+            <StatusBar text={urduText} />
+          </Grid>
 
 
-                {/* <Grid container spacing={3} alignItems="center" justifyContent="center">
+        </Grid>
+
+
+        {/* <Grid container spacing={3} alignItems="center" justifyContent="center">
 
                     <Grid item xs={12} sm={12} md={8}>
                         <TextField
@@ -248,7 +287,7 @@ const WordsSuggestion = () => {
 
                 </Grid> */}
 
-<SpeedDial
+        <SpeedDial
           ariaLabel="SpeedDial openIcon example"
           sx={{
             position: 'fixed',
@@ -272,7 +311,7 @@ const WordsSuggestion = () => {
             zIndex: 1000,
           }}
           icon={<SpeedDialIcon />}
-          // onClick={(event) => handleSpeedDialClick(event, action.name)}
+        // onClick={(event) => handleSpeedDialClick(event, action.name)}
         >
           {actions.map((action) => (
             <SpeedDialAction
@@ -293,9 +332,9 @@ const WordsSuggestion = () => {
             sendDataToParent={handleDataFromChild}
           />
         )}
-            </Container>
-        </>
-    )
+      </Container>
+    </>
+  )
 }
 
 export default WordsSuggestion
