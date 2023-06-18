@@ -53,7 +53,7 @@ const WordsSuggestion = () => {
     setLoader(true)
     // eslint-disable-next-line no-debugger
     debugger
-    wordSuggestion(currentContext).then(({ data }) => {
+    wordSuggestion(urduText).then(({ data }) => {
       // eslint-disable-next-line no-debugger
       debugger
       if (data.message === "Words List Fected Successfully") {
@@ -62,6 +62,7 @@ const WordsSuggestion = () => {
         setSuggestedWords(data.result)
         console.log("Data is", data)
         setLoader(false)
+        setIsSpace(false)
       } else {
         toaster(data.message, "error")
         setLoader(false)
@@ -115,7 +116,7 @@ const WordsSuggestion = () => {
     //   setIsSpace(true)
     // }
     setUrduText(event.target.value);
-    setCurrentContext(event.target.value);
+    // setCurrentContext(event.target.value);
   }
 
   const handleKeyPress = (event) => {
@@ -128,9 +129,9 @@ const WordsSuggestion = () => {
       setIsSpace(false)
     }
 
-    if(event.charCode===46 ||event.charCode===45){
-      setCurrentContext("");
-    }
+    // if(event.charCode===46 ||event.charCode===45){
+    //   setCurrentContext("");
+    // }
   }
 
 
