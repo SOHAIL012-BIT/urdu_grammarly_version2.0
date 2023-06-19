@@ -53,7 +53,7 @@ const WordsSuggestion = () => {
     setLoader(true)
     // eslint-disable-next-line no-debugger
     debugger
-    wordSuggestion(urduText).then(({ data }) => {
+    wordSuggestion(currentContext).then(({ data }) => {
       // eslint-disable-next-line no-debugger
       debugger
       if (data.message === "Words List Fected Successfully") {
@@ -107,6 +107,7 @@ const WordsSuggestion = () => {
   const handleButtonClick = (word) => {
     // setCurrentWord(word)
     setUrduText(`${urduText}  ${word}`);
+    setCurrentContext(`${currentContext}  ${word}`);
     // wordSuggestions();
   };
   const handleTextChange = (event) => {
@@ -116,6 +117,8 @@ const WordsSuggestion = () => {
     //   setIsSpace(true)
     // }
     setUrduText(event.target.value);
+    setCurrentContext(event.target.value);
+
     // setCurrentContext(event.target.value);
   }
 
@@ -129,9 +132,10 @@ const WordsSuggestion = () => {
       setIsSpace(false)
     }
 
-    // if(event.charCode===46 ||event.charCode===45){
-    //   setCurrentContext("");
-    // }
+    if(event.charCode===46 ||event.charCode===45){
+      console.log("Senence Completed")
+      setCurrentContext("");
+    }
   }
 
 
@@ -144,6 +148,7 @@ const WordsSuggestion = () => {
       setIsSpace(true)
     }
     setUrduText(data);
+    setCurrentContext(data);
   };
 
 
@@ -162,6 +167,7 @@ const WordsSuggestion = () => {
       copytoClipBoard(urduText)
     } else if (actionName === 'Open Keyboard') {
       setUrduText(`${urduText} `);
+      setCurrentContext(`${currentContext} `);
       setShouldOpenDialog(true);
     }
 
