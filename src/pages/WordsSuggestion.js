@@ -42,7 +42,7 @@ const WordsSuggestion = () => {
   const [urduText, setUrduText] = useState('');
   const [suggestedWords, setSuggestedWords] = useState(urduWords)
   const theme = useTheme();
-  const [loader,setLoader]=useState(false);
+  const [loader, setLoader] = useState(false);
   const [shouldOpenDialog, setShouldOpenDialog] = useState(false);
   const [currentContext, setCurrentContext] = useState("");
   const [isSpace, setIsSpace] = useState(false)
@@ -52,8 +52,20 @@ const WordsSuggestion = () => {
     // alert("API Called")
     setLoader(true)
     // eslint-disable-next-line no-debugger
-    debugger
-    wordSuggestion(currentContext).then(({ data }) => {
+    // debugger
+    // wordSuggestion(urduText).then(({ data }) => {
+    let arr;
+
+    if (urduText.includes("-") || urduText.includes(".")) {
+      arr = urduText.split(/[-.]/);
+    } else {
+      arr = [urduText];
+    }
+
+    const lastIndex = arr.length - 1;
+    // eslint-disable-next-line no-debugger
+    debugger;
+    wordSuggestion(arr[lastIndex]).then(({ data }) => {
       // eslint-disable-next-line no-debugger
       debugger
       if (data.message === "Words List Fected Successfully") {
@@ -94,7 +106,7 @@ const WordsSuggestion = () => {
     // eslint-disable-next-line no-debugger
     // debugger
     // if (words.length > 0 && words[words.length - 1].length > 3 && isSpace) {
-      if (words.length > 0 && isSpace) {
+    if (words.length > 0 && isSpace) {
       // callFunction();
       console.log("Word is ", words[words.length - 1])
       wordSuggestions()
@@ -123,16 +135,16 @@ const WordsSuggestion = () => {
   }
 
   const handleKeyPress = (event) => {
-    console.log("Key pressed is ",event );
+    console.log("Key pressed is ", event);
 
     // code:"Space"
-    if (event.code === "Space"|| event.charCode===32) {
+    if (event.code === "Space" || event.charCode === 32) {
       setIsSpace(true)
     } else {
       setIsSpace(false)
     }
 
-    if(event.charCode===46 ||event.charCode===45){
+    if (event.charCode === 46 || event.charCode === 45) {
       console.log("Senence Completed")
       setCurrentContext("");
     }
@@ -143,7 +155,7 @@ const WordsSuggestion = () => {
 
   const handleDataFromChild = (data, button) => {
     console.log("In Parent Data fron Child Button is", button)
-    if(button==="{space}"|| button==="{tab}"){
+    if (button === "{space}" || button === "{tab}") {
       // console.log("Hello g")
       setIsSpace(true)
     }
@@ -224,42 +236,42 @@ const WordsSuggestion = () => {
               Suggested Words
             </Typography>
             {(suggestedWords.length === 0) ?
-            <Grid item xs={12} sm={12} md={4} direction="rtl">
-              {(loader)? <CircularProgress />:<Typography variant="h4" sx={{ mb: 5 }} color="primary">
-                No Suggested Words
-              </Typography>}
-              
-            </Grid>:
-            <div>
-             {suggestedWords.map((word) => (
-              <Button
-                key={word}
-                variant="contained"
-                color="primary"
-                size="medium"
-                style={{
-                  margin: "3px 10px 10px 10px",
-                  direction: 'rtl', // Set text direction to right-to-left
-                  textAlign: 'right', // Set text alignment to right
-                  fontFamily: 'Noto Nastaliq Urdu',
-                  letterSpacing: '0.08rem',
-                  // fontFamily: 'Noto Naskh Arabic',
-                  fontSize: "16pt",
-                  // backgroundColor:"#bbbdc4",
-                  // color:"#323439",
-                  color: "ffffff",
-                  backgroundColor: "#323439",
-                }}
+              <Grid item xs={12} sm={12} md={4} direction="rtl">
+                {(loader) ? <CircularProgress /> : <Typography variant="h4" sx={{ mb: 5 }} color="primary">
+                  No Suggested Words
+                </Typography>}
 
-                onClick={() => handleButtonClick(word)}
-              >
-                {word}
-              </Button>
-            ))}</div>
-          }
+              </Grid> :
+              <div>
+                {suggestedWords.map((word) => (
+                  <Button
+                    key={word}
+                    variant="contained"
+                    color="primary"
+                    size="medium"
+                    style={{
+                      margin: "3px 10px 10px 10px",
+                      direction: 'rtl', // Set text direction to right-to-left
+                      textAlign: 'right', // Set text alignment to right
+                      fontFamily: 'Noto Nastaliq Urdu',
+                      letterSpacing: '0.08rem',
+                      // fontFamily: 'Noto Naskh Arabic',
+                      fontSize: "16pt",
+                      // backgroundColor:"#bbbdc4",
+                      // color:"#323439",
+                      color: "ffffff",
+                      backgroundColor: "#323439",
+                    }}
+
+                    onClick={() => handleButtonClick(word)}
+                  >
+                    {word}
+                  </Button>
+                ))}</div>
+            }
 
           </Grid>
-         
+
 
           <Grid item xs={12} sm={12} md={8}>
             <TextField
