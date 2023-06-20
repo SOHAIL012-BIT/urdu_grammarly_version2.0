@@ -18,9 +18,10 @@ import { AppConversionRates,} from '../sections/@dashboard/app';
 import Iconify from '../components/iconify';
 import OnScreenKeyboard from '../components/onScreenKeyboard/OnScreenKeyboard';
 
-
+import { toaster } from '../utils/toaster';
 // Files functions
-import  {saveDocAsFile,savePdfAsFile,copytoClipBoard} from "../utils/filesexport"
+import  {saveDocAsFile,savePdfAsFile,copytoClipBoard,StatusBar} from "../utils/filesexport"
+import { wordSuggestion } from '../services/applicationServices'
 
 
 const urduSentence = [
@@ -36,6 +37,79 @@ const TextEditor = () => {
   const [suggestedWords, setSuggestedWords] = useState(urduWords);
   const [correctSentence, setCorrectSentence] = useState(urduSentence);
   const [endOfSentence, setEndOfSentence] = useState(false);
+  const [isSpace, setIsSpace] = useState(false)
+
+  const [loader, setLoader] = useState(false);
+
+
+
+
+
+
+
+
+
+
+
+  const wordSuggestions = () => {
+    // alert("API Called")
+    setLoader(true)
+    // eslint-disable-next-line no-debugger
+    // debugger
+    // wordSuggestion(urduText).then(({ data }) => {
+    let arr;
+
+    if (urduText.includes("-") || urduText.includes(".")) {
+      arr = urduText.split(/[-.]/);
+    } else {
+      arr = [urduText];
+    }
+
+    const lastIndex = arr.length - 1;
+    // eslint-disable-next-line no-debugger
+    debugger;
+    const lastElement = arr[lastIndex];
+
+    if (lastElement.trim() !== '') {
+          // eslint-disable-next-line no-debugger
+      debugger;
+      wordSuggestion(lastElement).then(({ data }) => {
+      // eslint-disable-next-line no-debugger
+      debugger
+      if (data.message === "Words List Fected Successfully") {
+        // eslint-disable-next-line no-debugger
+        debugger
+        setSuggestedWords(data.result)
+        console.log("Data is", data)
+        setLoader(false)
+        setIsSpace(false)
+      } else {
+        toaster(data.message, "error")
+        setLoader(false)
+      }
+    })
+      .catch(error => {
+        // eslint-disable-next-line no-debugger
+        debugger
+        console.log("Error is", error)
+        toaster("Something went wrong", "error")
+        setLoader(false)
+      })
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+  // Utilities
 
   const handleButtonClick = (word) => {
     setUrduText(`${urduText}  ${word}`);
@@ -43,21 +117,33 @@ const TextEditor = () => {
   const handleTextChange = (event) => {
     setUrduText(event.target.value);
   };
-  // const handleTextChange = (event) => {
-  //    // eslint-disable-next-line no-debugger
-  //    debugger
-  //   if (event.code === 'Space' || event.code === 'Tab') {
-  //     alert('hello');
-  //   }
-  //   setUrduText(event.target.value);
-  // };
-  
 
-  const handleDataFromChild = (data) => {
-    // // eslint-disable-next-line no-debugger
-    // debugger
+  
+  const handleDataFromChild = (data, button) => {
+    console.log("In Parent Data fron Child Button is", button)
+    if (button === "{space}" || button === "{tab}") {
+      // console.log("Hello g")
+      setIsSpace(true)
+    }
     setUrduText(data);
   };
+
+
+  const handleKeyPress = (event) => {
+    console.log("Key pressed is ", event);
+
+    // code:"Space"
+    if (event.code === "Space" || event.charCode === 32) {
+      setIsSpace(true)
+    } else {
+      setIsSpace(false)
+    }
+
+    if (event.charCode === 46 || event.charCode === 45) {
+      console.log("Senence Completed")
+    }
+  }
+ 
   const handleCloseTarget = () => {
   
     setShouldOpenDialog(false);
@@ -82,15 +168,30 @@ const TextEditor = () => {
     }
   };
 
+
+
   useEffect(() => {
-    if (urduText.length > 50) {
-      setEndOfSentence(true);
-    }
+    const words = urduText.split(' ').filter(word => word.trim() !== '');
+
+    console.log("Original Text is", urduText);
+    console.log("Split text is", words);
+
     // eslint-disable-next-line no-debugger
-    debugger
-    
-    console.log('Change in text',urduText);
-  }, [urduText]);
+    // debugger
+    console.log("Last index length is", words[words.length - 1]?.length)
+    // eslint-disable-next-line no-debugger
+    // debugger
+    // if (words.length > 0 && words[words.length - 1].length > 3 && isSpace) {
+    if (words.length > 0 && isSpace) {
+      // callFunction();
+      console.log("Word is ", words[words.length - 1])
+      wordSuggestions()
+    }
+
+
+  }, [urduText])
+
+
 
   const actions = [
     {
@@ -119,9 +220,6 @@ const TextEditor = () => {
       </Helmet>
 
       <Container maxWidth="xl">
-        {/* <Typography variant="h4" sx={{ mb: 5 }}>
-                    Words Suggestion
-                </Typography> */}
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" color="#323439">
             Urdu Text Editor
@@ -132,37 +230,7 @@ const TextEditor = () => {
         </Stack>
 
         <Grid container spacing={3} alignItems="center" justifyContent="center">
-          {endOfSentence ? (
-            <Grid item xs={12} sm={12} md={4}>
-              <Typography variant="h5" color="#323439">
-                Correct Sentence
-              </Typography>
-              {correctSentence.map((word) => (
-                <Button
-                  key={word}
-                  variant="contained"
-                  color="primary"
-                  size="medium"
-                  style={{
-                    margin: '3px 10px 10px 10px',
-                    direction: 'rtl', // Set text direction to right-to-left
-                    textAlign: 'right', // Set text alignment to right
-                    fontFamily: 'Noto Nastaliq Urdu',
-                    letterSpacing: '0.08rem',
-                    // fontFamily: 'Noto Naskh Arabic',
-                    fontSize: '16pt',
-                    // backgroundColor:"#bbbdc4",
-                    // color:"#323439",
-                    color: 'ffffff',
-                    backgroundColor: '#323439',
-                  }}
-                  onClick={() => handleButtonClick(word)}
-                >
-                  {word}
-                </Button>
-              ))}
-            </Grid>
-          ) : (
+          
             <Grid item xs={12} sm={12} md={4}>
               <Typography variant="h5" color="#323439">
                 Suggested Words
@@ -192,7 +260,7 @@ const TextEditor = () => {
                 </Button>
               ))}
             </Grid>
-          )}
+          
 
           {suggestedWords.length === 0 && (
             <Grid item xs={12} sm={12} md={4} direction="rtl">
@@ -217,8 +285,10 @@ const TextEditor = () => {
               }}
               fullWidth
               onChange={handleTextChange}
+              onKeyPress={(e) => handleKeyPress(e)}
               // Additional TextField props as needed
             />
+             <StatusBar text={urduText} />
           </Grid>
         </Grid>
 
