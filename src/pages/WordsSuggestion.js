@@ -65,7 +65,12 @@ const WordsSuggestion = () => {
     const lastIndex = arr.length - 1;
     // eslint-disable-next-line no-debugger
     debugger;
-    wordSuggestion(arr[lastIndex]).then(({ data }) => {
+    const lastElement = arr[lastIndex];
+
+    if (lastElement.trim() !== '') {
+          // eslint-disable-next-line no-debugger
+      debugger;
+      wordSuggestion(lastElement).then(({ data }) => {
       // eslint-disable-next-line no-debugger
       debugger
       if (data.message === "Words List Fected Successfully") {
@@ -87,6 +92,7 @@ const WordsSuggestion = () => {
         toaster("Something went wrong", "error")
         setLoader(false)
       })
+    }
   }
 
 
@@ -219,9 +225,6 @@ const WordsSuggestion = () => {
       </Helmet>
 
       <Container maxWidth="xl">
-        {/* <Typography variant="h4" sx={{ mb: 5 }}>
-                    Words Suggestion
-                </Typography> */}
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" color="#323439">
             Words Suggestion

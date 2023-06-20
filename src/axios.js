@@ -15,13 +15,12 @@ const axiosInstance = axios.create({
      
       // const localStorage = getLocalTokens()
       const localStorage="wewaawewwwrwrwre"
+      // eslint-disable-next-line no-debugger
+      debugger
       if (localStorage !== null) {
-        // config.headers["Authorization"] = 'Bearer ' + localStorage.token;  // for Spring Boot back-end
-      //   config.headers["x-access-token"] = localStorage.token; // for Node.js Express back-end
       config.headers = { 
         // 'Authorization': `Bearer ${localStorage.token}`,
-        'Accept': 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded'
+        "Content-Type": "application/json",
       }
       }
       return config;

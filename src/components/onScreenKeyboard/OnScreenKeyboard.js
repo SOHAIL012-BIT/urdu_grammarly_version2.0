@@ -126,7 +126,11 @@ const OnScreenKeyboard = ({ open, closemodal, inputText, sendDataToParent }) => 
       setButton(button)
     }else if (button === '{tab}') {
       setInput(`${input}  `);
-    } else {
+    }else if (button === '-' || button==='.') {
+      setInput(`${input}${button} `);
+      setButton(button)
+    }
+    else {
      
       setInput(`${input}${button}`);
       
