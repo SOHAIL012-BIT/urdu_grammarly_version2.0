@@ -21,7 +21,7 @@ import OnScreenKeyboard from '../components/onScreenKeyboard/OnScreenKeyboard';
 import { toaster } from '../utils/toaster';
 // Files functions
 import  {saveDocAsFile,savePdfAsFile,copytoClipBoard,StatusBar} from "../utils/filesexport"
-import { wordSuggestion } from '../services/applicationServices'
+import { wordSuggestion,grammarCheck } from '../services/applicationServices'
 
 
 const urduSentence = [
@@ -38,7 +38,7 @@ const TextEditor = () => {
   const [correctSentence, setCorrectSentence] = useState(urduSentence);
   const [endOfSentence, setEndOfSentence] = useState(false);
   const [isSpace, setIsSpace] = useState(false)
-
+  const [probablity, setProbablity] = useState(0)
   const [loader, setLoader] = useState(false);
 
 
@@ -98,6 +98,59 @@ const TextEditor = () => {
     }
   }
 
+  const grammarErrorCheck = () => {
+    setLoader(true)
+    let arr;
+
+    if (urduText.includes("-") || urduText.includes(".")) {
+      arr = urduText.split(/[-.]/);
+    } else {
+      arr = [urduText];
+    }
+
+    const lastIndex = arr.length - 1;
+    // eslint-disable-next-line no-debugger
+    debugger;
+    const lastElement = arr[lastIndex];
+
+    if (lastElement.trim() !== '') {
+      // eslint-disable-next-line no-debugger
+      debugger;
+      grammarCheck(lastElement).then(({ data }) => {
+        if (data.isSuccess === true) {
+          // eslint-disable-next-line no-debugger
+          debugger
+          console.log("Data is", data)
+          setProbablity(data.grammar_result)
+          setLoader(false)
+        }
+        // else if (data.error.includes("is not in list")){
+        //   // urduText
+        //   const regex = /'([^']+)'/;
+        //   const match = regex.exec(data.error);
+        //   if (match && match[1]) {
+        //     const errorWord = match[1];
+        //     console.log(`API error: ${errorWord}`);
+        //     const updatedText = urduText.replace(errorWord, '');
+        //     // Update the state with the updated text
+        //     setUrduText(updatedText);
+        //   }
+        // }
+        else {
+          toaster(data.message, "error")
+          setLoader(false)
+        }
+      })
+        .catch(error => {
+          // eslint-disable-next-line no-debugger
+          debugger
+          console.log("Error is", error)
+          toaster("Something went wrong", "error")
+          setLoader(false)
+        })
+    }
+  }
+
 
 
 
@@ -125,6 +178,10 @@ const TextEditor = () => {
       // console.log("Hello g")
       setIsSpace(true)
     }
+    if (button === "." || button === "-") {
+      grammarErrorCheck();
+      setUrduText(data);
+    }
     setUrduText(data);
   };
 
@@ -140,7 +197,7 @@ const TextEditor = () => {
     }
 
     if (event.charCode === 46 || event.charCode === 45) {
-      console.log("Senence Completed")
+      grammarErrorCheck();
     }
   }
  
@@ -315,8 +372,8 @@ const TextEditor = () => {
             <AppConversionRates
               title="Grammatical Correction Probablity"
               chartData={[
-                { label: 'Correct', value: 60 },
-                { label: 'Incorrect', value: 40 },
+                { label: 'Correct', value: probablity * 100 },
+                { label: 'Incorrect', value: (1 - probablity) * 100 },
               ]}
               chartColors={[theme.palette.primary.main, theme.palette.info.main]}
             />
