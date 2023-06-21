@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 import { toaster } from '../../../utils/toaster';
 import Iconify from '../../../components/iconify';
 
-import {UserLogin} from '../../../services/AuthenticationServices'
+import { UserLogin } from '../../../services/AuthenticationServices'
 
 
 
@@ -35,21 +35,23 @@ export default function LoginForm() {
     setState(temp);
   }
   // Api Call Function
-  const Login=()=>{
-   // eslint-disable-next-line no-debugger
+  const Login = () => {
+    // eslint-disable-next-line no-debugger
     debugger
-    UserLogin(state).then(  ({ data }) => {
-          if (data.token) {
-            Cookies.set("jwToken", data.token);
-            localStorage.setItem('token', data.token);
-            navigate("/dashboard");
-          } else {
-             toaster("Invalid Credential or Something went wrong", "error")
-          }
-        })
-        .catch(error => {
-           toaster("Something went wrong", "error")
-        })
+    UserLogin(state).then(({ data }) => {
+      if (data.token) {
+        Cookies.set("jwToken", data.token);
+        localStorage.setItem('token', data.token);
+        const stateString = JSON.stringify(state);
+        localStorage.setItem('userData', stateString);
+        navigate("/dashboard");
+      } else {
+        toaster("Invalid Credential or Something went wrong", "error")
+      }
+    })
+      .catch(error => {
+        toaster("Something went wrong", "error")
+      })
   }
 
 
@@ -62,12 +64,12 @@ export default function LoginForm() {
           name="password"
           label="Password"
           type={showPassword ? 'text' : 'password'}
-          onChange={handleChange} 
+          onChange={handleChange}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
                 <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                <Iconify icon={showPassword ?'eva:eye-off-fill':'ic:round-remove-red-eye'} />
+                  <Iconify icon={showPassword ? 'eva:eye-off-fill' : 'ic:round-remove-red-eye'} />
                 </IconButton>
               </InputAdornment>
             ),
@@ -76,13 +78,13 @@ export default function LoginForm() {
       </Stack>
 
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-        <Checkbox name="remember" label="Remember me"  style={{color:"#323439"}}/>
+        {/* <Checkbox name="remember" label="Remember me"  style={{color:"#323439"}}/>
         <Link variant="subtitle2" underline="hover"  style={{color:"#323439"}}>
           Forgot password?
-        </Link>
+        </Link> */}
       </Stack>
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={handleClick}  style={{backgroundColor:"#323439", color:"#ffffff"}}>
+      <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={handleClick} style={{ backgroundColor: "#323439", color: "#ffffff" }}>
         Sign
       </LoadingButton>
     </>

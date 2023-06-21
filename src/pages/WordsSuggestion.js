@@ -66,7 +66,6 @@ const WordsSuggestion = () => {
     // eslint-disable-next-line no-debugger
     debugger;
     const lastElement = arr[lastIndex];
-
     if (lastElement.trim() !== '') {
           // eslint-disable-next-line no-debugger
       debugger;
@@ -97,10 +96,6 @@ const WordsSuggestion = () => {
 
 
   useEffect(() => {
-    // const words = urduText.split(' ');
-
-    // console.log("Orignal Text is",urduText)
-    // console.log("Splitted text is",words)
     const words = urduText.split(' ').filter(word => word.trim() !== '');
 
     console.log("Original Text is", urduText);
@@ -130,10 +125,6 @@ const WordsSuggestion = () => {
   };
   const handleTextChange = (event) => {
     console.log("Event in Check is", event.target.value)
-    // if(event.target.value===" "){
-    //   console.log("Space CLicked")
-    //   setIsSpace(true)
-    // }
     setUrduText(event.target.value);
     setCurrentContext(event.target.value);
 
@@ -291,7 +282,8 @@ const WordsSuggestion = () => {
               }}
               fullWidth
               onChange={handleTextChange}
-              onKeyPress={(e) => handleKeyPress(e)}
+              onKeyPress={(e) => handleKeyPress(e)
+              }
             // Additional TextField props as needed
             />
             <StatusBar text={urduText} />

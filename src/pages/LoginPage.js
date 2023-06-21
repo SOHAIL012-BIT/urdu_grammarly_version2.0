@@ -54,13 +54,6 @@ export default function LoginPage() {
       </Helmet>
 
       <StyledRoot>
-        {/* <Logo
-          sx={{
-            position: 'fixed',
-            top: { xs: 16, sm: 24, md: 40 },
-            left: { xs: 16, sm: 24, md: 40 },
-          }}
-        /> */}
 
         {mdUp && (
           <StyledSection style={{backgroundColor:"#323439", color:"#ffffff"}}>
@@ -91,7 +84,7 @@ export default function LoginPage() {
 
             <LoginForm />
             {/* <SignupForm/> */}
-            <Divider sx={{ my: 3 }}>
+            {/* <Divider sx={{ my: 3 }}>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 OR
               </Typography>
@@ -104,14 +97,14 @@ export default function LoginPage() {
               </Typography>
               </Button>
 
-              {/* <Button fullWidth size="large" color="inherit" variant="outlined">
+              <Button fullWidth size="large" color="inherit" variant="outlined">
                 <Iconify icon="eva:facebook-fill" color="#1877F2" width={22} height={22} />
               </Button>
 
               <Button fullWidth size="large" color="inherit" variant="outlined">
                 <Iconify icon="eva:twitter-fill" color="#1C9CEA" width={22} height={22} />
-              </Button> */}
-            </Stack>
+              </Button>
+            </Stack> */}
           </StyledContent>
         </Container>
       </StyledRoot>
