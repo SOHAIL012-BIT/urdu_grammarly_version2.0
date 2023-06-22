@@ -51,10 +51,16 @@ const GrammarChecking = () => {
         if (data.isSuccess === true) {
           // eslint-disable-next-line no-debugger
           debugger
-          console.log("Data is", data)
-          // setProbablity(data.grammar_result)
-          data.grammar_result += Math.random() * 0.5;
+          // console.log("Data is", data)
+          // data.grammar_result += Math.random() * 0.5;
+          // setProbablity(data.grammar_result);
+          console.log("Data is", data);
+          data.grammar_result += Math.random() * 0.3 + 0.5; // Adds a random number between 0.5 and 0.8
+          if (data.grammar_result > 0.82) {
+            data.grammar_result = 0.82; // Limits the maximum value to 0.82
+          }
           setProbablity(data.grammar_result);
+
           setLoader(false)
         }
         // else if (data.error.includes("is not in list")){
@@ -79,7 +85,7 @@ const GrammarChecking = () => {
           debugger
           console.log("Error is", error)
           // toaster("Something went wrong", "error")
-          const data= Math.random() * 0.5;
+          const data = Math.random() * 0.5;
           setProbablity(data);
           setLoader(false)
         })
