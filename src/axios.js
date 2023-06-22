@@ -14,7 +14,7 @@ const axiosInstance = axios.create({
     (config) => {
      
       // const localStorage = getLocalTokens()
-      // const localStorage="wewaawewwwrwrwre"
+      const localStorage="wewaawewwwrwrwre"
       console.log("Configuration is ",config.url)
       // eslint-disable-next-line no-debugger
       debugger
