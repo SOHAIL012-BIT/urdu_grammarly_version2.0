@@ -8,7 +8,7 @@ import aboutUs from '../assets/images/aboutus.png'
 import logo from '../assets/images/dashboardLogo.png'
 
 import Header from './Header'
-import Footer from './Footer'
+// import Footer from './Footer'
 
 const useStyles = makeStyles((theme) => ({
     banner: {
@@ -115,8 +115,8 @@ function About() {
                     </Grid>
                 </Container>
             </div>
-
-            <Footer/>
+{/* 
+            <Footer/> */}
         </>
     );
 }

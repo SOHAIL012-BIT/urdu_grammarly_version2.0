@@ -21,7 +21,7 @@ import TextEditor from './pages/TextEditor';
 // --------------------website------------------
 
 import Aboutus from './websitepages/AboutUs'
-
+import HomePage from './websitepages/homepage'
 
 
 export default function Router() {
@@ -42,8 +42,28 @@ export default function Router() {
 
       ],
     },
+    // {
+    //   path: '/urduGrammarly',
+    //   // element: <DashboardLayout />,
+    //   children: [
+    //     { element: <Navigate to="/urduGrammarly/home" />, index: true },
+    //     { path: 'home', element: <HomePage /> },
+    //     { path: 'About', element: <Aboutus /> },
+    //     { path: 'products', element: <ProductsPage /> },
+    //     { path: 'blog', element: <BlogPage /> },
+    //     { path: 'WordsSuggestion', element: <WordsSuggestion /> },
+    //     { path: 'GrammarChecking', element: <GrammarChecking /> },
+    //     { path: 'SentenceCorrection', element: <SentenceCorrection /> },
+    //     { path: 'TextEditor', element: <TextEditor /> },
+
+    //   ],
+    // },
     {
-      path: '/AboutUS',
+      path: 'home',
+      element: <HomePage />,
+    },
+    {
+      path: 'About',
       element: <Aboutus />,
     },
     {
@@ -57,7 +77,9 @@ export default function Router() {
     {
       element: <SimpleLayout />,
       children: [
-        { element: <Navigate to="/dashboard/app" />, index: true },
+        // { element: <Navigate to="/urduGrammarly/home" />, index: true },
+        { element: <Navigate to="/home" />, index: true },
+
         { path: '404', element: <Page404 /> },
         { path: '*', element: <Navigate to="/404" /> },
       ],
