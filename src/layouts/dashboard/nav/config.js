@@ -17,7 +17,7 @@ const navConfig = [
     icon: icon('ic_blog'),
   },
   {
-    title: 'Sentence Correction',
+    title: 'Text Correction',
     path: '/dashboard/SentenceCorrection',
     icon: icon('ic_blog'),
   },

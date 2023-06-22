@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover } from '@mui/material';
+import Cookies from "js-cookie";
 // mocks_
 import account from '../../../_mock/account';
 
@@ -38,10 +39,18 @@ export default function AccountPopover() {
     setOpen(null);
   };
   const handleLogout = () => {
+    // Clear the cookie
+    Cookies.remove("jwToken");
+    // Clear the local storage items
+    localStorage.removeItem('token');
+    localStorage.removeItem('userData');
+
     navigate("/login");
     setOpen(null);
   };
 
+  const userData = localStorage.getItem('userData');
+  const uppercaseUserData = userData.toUpperCase();
   return (
     <>
       <IconButton
@@ -85,22 +94,20 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {uppercaseUserData}
           </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
-          </Typography>
+
         </Box>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <Stack sx={{ p: 1 }}>
+        {/* <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
             <MenuItem key={option.label} onClick={handleClose}>
               {option.label}
             </MenuItem>
           ))}
-        </Stack>
+        </Stack> */}
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 

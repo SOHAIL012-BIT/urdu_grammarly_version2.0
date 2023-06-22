@@ -6,20 +6,8 @@ import { Grid, Container, Typography, Stack } from '@mui/material';
 
 import { useNavigate } from "react-router-dom";
 
-
-// components
-import Iconify from '../components/iconify';
-// sections
 import {
-  AppTasks,
-  AppNewsUpdate,
-  AppOrderTimeline,
-  AppCurrentVisits,
-  AppWebsiteVisits,
-  AppTrafficBySite,
   AppWidgetSummary,
-  AppCurrentSubject,
-  AppConversionRates,
 } from '../sections/@dashboard/app';
 
 // ----------------------------------------------------------------------
@@ -65,7 +53,7 @@ export default function DashboardAppPage() {
               subtitle={"Unlock your writing potential with our AI-powered Sentence and Word Suggestion tool. Effortlessly improve your writing with tailored suggestions and say goodbye to writer's block."}
               color="info"
               urduTrans=".ہمارے اے آئی پاورڈ جملوں اور الفاظ کی تجویز کرنے والے ٹول کے ساتھ اپنی لکھائی کی صلاحیت کو کھولیں. اپنی لکھائی کو آسانی سے بہتر بنائیں اور لکھاریز کے بلاک کو وداع کہیں"
-              // icon={'ant-design:apple-filled'} 
+             
               icon={'ant-design:bulb-filled'} />
           </Grid>
 
@@ -74,7 +62,6 @@ export default function DashboardAppPage() {
               subtitle="Bye to spelling mistakes with our Correction Checker! Advanced technology for error-free text, elevating your writing game."
               urduTrans="اپنے اشتباہیں درست کرنے کے ساتھ خداحافظ کہیں ہمارے اصلاح چیکر کے ساتھ! انتہائی ترقی یافتہ ٹیکنالوجی کے ذریعہ آپ کے مواد کو سکین کرنے اور صحیح املا کی تجویز کرنے دیں. تیار رہیں کہ آپ کا لکھائی کو باضابطہ بنائیں اور غلطیوں سے پاک مواد کے ساتھ باقاعدہ اثر انداز کریں."
               color="info"
-              // icon={'ant-design:windows-filled'} 
               icon={'ant-design:edit-filled'}
             />
           </Grid>
@@ -83,9 +70,17 @@ export default function DashboardAppPage() {
               color="info"
               subtitle="Eliminate grammar errors with Urdu Grammarly's AI-powered Grammar Check for flawless Urdu writing. Elevate your writing and impress your audience with impeccable grammar."
               urduTrans=".اعلٰی اردو کیلئے یو. آر. دو گرامرلی کی طاقتور ای آئی پاورڈ گرامر چیک کے ساتھ گرامر کی خامیاں ختم کریں. اپنے لکھائی کو اونچا اٹھائیں اور اپنے حضور کو بےعیب گرامر کے ساتھ پرجوش کریں"
-              //  icon={'ant-design:android-filled'} 
+    
               icon={'ant-design:check-square-filled'}
             />
+          </Grid>
+          <Grid item xs={12} sm={12} md={6} id="TextEditor" data-divId="TextEditor" onClick={handleCardClick}>
+            <AppWidgetSummary title="Urdu Text Editor"
+              subtitle={"Enhance your Urdu writing effortlessly with the Urdu Grammarly Text Editor. Access powerful features like Word Suggestion, Text Correction, and Grammar Check in one user-friendly interface."}
+              color="info"
+              urduTrans="اردو گرامرلی ٹیکسٹ ایڈیٹر کے ساتھ آسانی سے اپنی اردو تحریر کو بہتر بنائیں۔ ایک صارف دوست انٹرفیس میں ورڈ تجویز، متن کی اصلاح، اور گرامر چیک جیسی طاقتور خصوصیات تک رسائی حاصل کریں۔"
+             
+              icon={'ant-design:book-filled'} />
           </Grid>
         </Grid>
       </Container>

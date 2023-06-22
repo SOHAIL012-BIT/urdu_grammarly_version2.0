@@ -42,6 +42,10 @@ export default function Nav({ openNav, onCloseNav }) {
 
   const isDesktop = useResponsive('up', 'lg');
 
+  const userData = localStorage.getItem('userData');
+  const uppercaseUserData = userData.toUpperCase();
+
+
   useEffect(() => {
     if (openNav) {
       onCloseNav();
@@ -68,11 +72,11 @@ export default function Nav({ openNav, onCloseNav }) {
 
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }} style={{color:"white"}}>
-                {account.displayName}
+                {uppercaseUserData}
               </Typography>
 
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                {account.role}
+                Grammarly User
               </Typography>
             </Box>
           </StyledAccount>

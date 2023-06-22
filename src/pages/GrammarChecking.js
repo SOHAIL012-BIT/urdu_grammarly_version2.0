@@ -139,8 +139,6 @@ const GrammarChecking = () => {
 
 
   const handleButtonClick = (word) => {
-    // setUrduText(urduText + ' ' + word); // Append clicked word to current urduText
-    // setUrduText(`${urduText}  ${word}`);
     grammarErrorCheck();
   };
 
@@ -255,8 +253,6 @@ const GrammarChecking = () => {
           </Grid>
 
         </Grid>
-
-
         <SpeedDial
           ariaLabel="SpeedDial openIcon example"
           sx={{

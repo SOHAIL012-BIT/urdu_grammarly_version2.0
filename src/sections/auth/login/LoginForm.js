@@ -42,7 +42,7 @@ export default function LoginForm() {
       if (data.token) {
         Cookies.set("jwToken", data.token);
         localStorage.setItem('token', data.token);
-        const stateString = JSON.stringify(state);
+        const stateString = state.username;
         localStorage.setItem('userData', stateString);
         navigate("/dashboard");
       } else {
