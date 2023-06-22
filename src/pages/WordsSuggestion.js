@@ -232,7 +232,7 @@ const WordsSuggestion = () => {
             </Typography>
             {(suggestedWords.length === 0) ?
               <Grid item xs={12} sm={12} md={4} direction="rtl">
-                <Typography variant="h4" sx={{ mb: 5 }} color="primary">
+                <Typography variant="body1" sx={{ mb: 5 }} color="primary">
                   No Suggested Words
                 </Typography>
 

@@ -7,6 +7,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { makeStyles } from "@material-ui/core/styles";
 import logo from '../assets/images/urdu3.png'
 
+import logoMain from '../assets/images/dashboardLogo.png'
 
 
 const useStyles = makeStyles({
@@ -52,22 +53,20 @@ function Header() {
               <div className="col-6 ">
                 <p style={{ width: 150 }} className="text-muted mt-4 px-lg-3">HOW IT WORKS</p>
                 <NavDropdown.Item
-                  href="/feature"
+                  href="/features"
                   className="fw-bold py-4 "
                 >
                   Features
                 </NavDropdown.Item>
 
                 <p style={{ width: 150 }} className="text-muted mt-4 px-lg-3">WHO ARE WE</p>
-                <NavDropdown.Item href="/about" className="fw-bold py-4">
+                <NavDropdown.Item href="/About" className="fw-bold py-4">
                   About
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/contact" className="fw-bold py-4">
+                {/* <NavDropdown.Item href="/contact" className="fw-bold py-4">
                   Contact
-                </NavDropdown.Item>
-                <NavDropdown.Item href="/carrer" className="fw-bold py-4">
-                  Careers
-                </NavDropdown.Item>
+                </NavDropdown.Item> */}
+                
               </div>
             </NavDropdown>
             <NavDropdown
@@ -78,13 +77,13 @@ function Header() {
 
               <p className="text-muted mt-4 px-lg-3">HOW IT WORKS</p>
 
-              <NavDropdown.Item href="/writting" className="fw-bold mt-4">
+              <NavDropdown.Item href="/GrammarCheck" className="fw-bold mt-4">
                 Grammar Check
               </NavDropdown.Item>
-              <NavDropdown.Item href="/grammer" className="fw-bold mt-4">
-                Sentence/Word correction
+              <NavDropdown.Item href="/TextCorrection" className="fw-bold mt-4">
+                Text correction
               </NavDropdown.Item>
-              <NavDropdown.Item href="/pun" className="fw-bold mt-4">
+              <NavDropdown.Item href="/WordSuggestion" className="fw-bold mt-4">
                 Word Suggestion
               </NavDropdown.Item>
             </NavDropdown>
