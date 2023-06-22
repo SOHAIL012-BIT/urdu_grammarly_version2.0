@@ -11,7 +11,7 @@ export const wordSuggestion = (model) => {
 export const wordCorrection = (model) => {
     // eslint-disable-next-line no-debugger
     debugger
-    return axiosInstance.post(`/prediction`, model);
+    return axiosInstance.post(`/correction`, model);
 }
 
 export const grammarCheck = (model) => {

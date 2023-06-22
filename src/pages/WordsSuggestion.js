@@ -4,6 +4,7 @@ import { faker } from '@faker-js/faker';
 // @mui
 import CircularProgress from '@mui/material/CircularProgress';
 import { useTheme } from '@mui/material/styles';
+import LinearProgress from '@mui/material/LinearProgress';
 import { Grid, Container, Typography, TextField, Button, Stack, Tooltip } from '@mui/material';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
@@ -231,9 +232,9 @@ const WordsSuggestion = () => {
             </Typography>
             {(suggestedWords.length === 0) ?
               <Grid item xs={12} sm={12} md={4} direction="rtl">
-                {(loader) ? <CircularProgress /> : <Typography variant="h4" sx={{ mb: 5 }} color="primary">
+                <Typography variant="h4" sx={{ mb: 5 }} color="primary">
                   No Suggested Words
-                </Typography>}
+                </Typography>
 
               </Grid> :
               <div>
@@ -286,6 +287,7 @@ const WordsSuggestion = () => {
               }
             // Additional TextField props as needed
             />
+            {loader&&<LinearProgress color="inherit" />}
             <StatusBar text={urduText} />
           </Grid>
 
@@ -293,72 +295,7 @@ const WordsSuggestion = () => {
         </Grid>
 
 
-        {/* <Grid container spacing={3} alignItems="center" justifyContent="center">
-
-                    <Grid item xs={12} sm={12} md={8}>
-                        <TextField
-                            label="اپنی اردو یہاں لکھیں۔"
-                            multiline
-                            rows={15}
-                            value={urduText}
-                            inputProps={{
-                                style: {
-                                    direction: 'rtl', // Set text direction to right-to-left
-                                    textAlign: 'right', // Set text alignment to right
-                                    fontFamily: 'Nastaliq', // Use a Urdu-specific font for better display
-                                },
-                            }}
-                            fullWidth
-                            onChange={handleTextChange}
-                        // Additional TextField props as needed
-                        />
-                    </Grid>
-                </Grid>
-                <Grid container spacing={3} alignItems="center" justifyContent="center">
-                <Grid item xs={12} sm={12} md={8} >
-                <Typography variant="h5" color="#323439">
-                     Suggested Words
-                    </Typography>
-                    </Grid>
-
-                    <Grid item xs={12} sm={12} md={8} direction="rtl">
-                     
-                        {suggestedWords.map((word) => (
-                            <Button
-                                key={word}
-                                variant="contained"
-                                color="primary"
-                                size="medium"
-                                style={{
-                                    margin: "3px 10px 10px 10px",
-                                    direction: 'rtl', // Set text direction to right-to-left
-                                    textAlign: 'right', // Set text alignment to right
-                                    fontFamily: 'Noto Nastaliq Urdu',
-                                    letterSpacing: '0.08rem',
-                                    // fontFamily: 'Noto Naskh Arabic',
-                                    fontSize: "16pt",
-                                    // backgroundColor:"#bbbdc4",
-                                    // color:"#323439",
-                                    color: "ffffff",
-                                    backgroundColor: "#323439",
-                                }}
-
-                                onClick={() => handleButtonClick(word)}
-                            >
-                                {word}
-                            </Button>
-                        ))}
-                    </Grid>
-
-                    <Grid item xs={12} sm={12} md={8} direction="rtl">
-                        {(suggestedWords.length === 0) &&
-                            <Typography variant="h4" sx={{ mb: 5 }} color="primary">
-                                No Suggested Words
-                            </Typography>
-                        }
-                    </Grid>
-
-                </Grid> */}
+   
 
         <SpeedDial
           ariaLabel="SpeedDial openIcon example"

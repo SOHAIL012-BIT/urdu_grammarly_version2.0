@@ -4,33 +4,157 @@ import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography, TextField, Button, Stack, Tooltip } from '@mui/material';
+import LinearProgress from '@mui/material/LinearProgress';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import { AppConversionRates, } from '../sections/@dashboard/app';
-
 // components
 import OnScreenKeyboard from '../components/onScreenKeyboard/OnScreenKeyboard';
 // Files functions
+import { toaster } from '../utils/toaster';
 import  {saveDocAsFile,savePdfAsFile,copytoClipBoard,StatusBar} from "../utils/filesexport"
 import Iconify from '../components/iconify';
 
-const urduWords = [
-    '-ہمارے اے آئی پاورڈ جملوں اور الفاظ کی تجویز کرنے والے ٹول کے ساتھ اپنی لکھائی کی صلاحیت کو کھولیں',
-];
-// const urduWords = []
+import { wordCorrection } from '../services/applicationServices'
+
+
+// const urduWords = [
+//     '-ہمارے اے آئی پاورڈ جملوں اور الفاظ کی تجویز کرنے والے ٹول کے ساتھ اپنی لکھائی کی صلاحیت کو کھولیں',
+// ];
+const urduWords = []
 
 const SentenceCorrection = () => {
-    const theme = useTheme();
-    const [urduText, setUrduText] = useState('');
-    const [suggestedWords, setSuggestedWords] = useState(urduWords)
-    const [shouldOpenDialog, setShouldOpenDialog] = useState(false);
+  const [urduText, setUrduText] = useState('');
+  const [suggestedWords, setSuggestedWords] = useState(urduWords)
+  const theme = useTheme();
+  const [loader, setLoader] = useState(false);
+  const [shouldOpenDialog, setShouldOpenDialog] = useState(false);
+  const [currentContext, setCurrentContext] = useState("");
+  const [isSpace, setIsSpace] = useState(false)
+  const [resultsCount,setResultCount]=useState();
+  
+
+
+
+
+
+  const textCorrection = () => {
+    setLoader(true)
+    let arr;
+
+    if (urduText.includes("-") || urduText.includes(".")) {
+      arr = urduText.split(/[-.]/);
+    } else {
+      arr = [urduText];
+    }
+
+    const lastIndex = arr.length - 1;
+    // eslint-disable-next-line no-debugger
+    debugger;
+
+    let lastArr;
+    const lastElement = arr[lastIndex];
+    if (lastElement.includes(" ")) {
+      lastArr = urduText.split(/[" "]/);
+    }
+
+    console.log("lastArr",lastArr)
+    if (lastElement.trim() !== '' && lastArr.length > 2) {
+          // eslint-disable-next-line no-debugger
+      debugger;
+      wordCorrection(lastElement).then(({ data }) => {
+      // eslint-disable-next-line no-debugger
+      debugger
+      if (data.message === "Text Corrected") {
+        // eslint-disable-next-line no-debugger
+        debugger
+        setSuggestedWords([data.cor_result_jaccard])
+        console.log("Data is", data)
+        setLoader(false)
+        setIsSpace(false)
+      } else if (data.message === "No Incorrect Words") {
+        // eslint-disable-next-line no-debugger
+        debugger
+        setSuggestedWords([])
+        setLoader(false)
+        setIsSpace(false)
+      }  else {
+        toaster(data.message, "error")
+        setLoader(false)
+      }
+    })
+      .catch(error => {
+        // eslint-disable-next-line no-debugger
+        debugger
+        console.log("Error is", error)
+        toaster("Something went wrong", "error")
+        setLoader(false)
+      })
+    }
+  }
+
+
+  useEffect(() => {
+    const words = urduText.split(' ').filter(word => word.trim() !== '');
+
+    console.log("Original Text is", urduText);
+    console.log("Split text is", words);
+
+    // eslint-disable-next-line no-debugger
+    // debugger
+    console.log("Last index length is", words[words.length - 1]?.length)
+    // eslint-disable-next-line no-debugger
+    // debugger
+    // if (words.length > 0 && words[words.length - 1].length > 3 && isSpace) {
+    if (words.length > 0 && isSpace) {
+      // callFunction();
+      console.log("Word is ", words[words.length - 1])
+      textCorrection()
+    }
+
+
+  }, [urduText])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     const handleButtonClick = (word) => {
         // setUrduText(urduText + ' ' + word); // Append clicked word to current urduText
         setUrduText(`${urduText}  ${word}`);
     };
     
+
+    const handleKeyPress = (event) => {
+      console.log("Key pressed is ", event);
+  
+      // code:"Space"
+      if (event.code === "Space" || event.charCode === 32) {
+        setIsSpace(true)
+      } else {
+        setIsSpace(false)
+      }
+  
+      if (event.charCode === 46 || event.charCode === 45) {
+        console.log("Senence Completed")
+        setCurrentContext("");
+      }
+    }
+
 
     console.log("Urdu Text is", urduText)
  
@@ -86,35 +210,28 @@ const SentenceCorrection = () => {
           icon: <Iconify icon="pajamas:copy-to-clipboard" color="#323439" vFlip width="80%" height="80%" />,
           name: 'Copy To clipboard',
         },
-        // { icon: <Iconify icon="eva:close-fill" color="red" />, name: 'Share' },
       ];
     return (
         <>
             <Helmet>
-                <title> Dashboard | Sentence Correction</title>
+                <title> Dashboard | Text Correction</title>
             </Helmet>
-
+          
             <Container maxWidth="xl">
-                {/* <Typography variant="h4" sx={{ mb: 5 }}>
-                    Words Suggestion
-                </Typography> */}
                 <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
                     <Typography variant="h4" color="#323439">
-                        Sentence Correction
+                        Text Correction
                     </Typography>
                     <Typography variant="h4" color="#323439">
-                    جملے کی اصلاح
+                    متن کی تصحیح
                     </Typography>
                 </Stack>
-
-
-
                 <Grid container spacing={3} alignItems="center" justifyContent="center">
-                <Grid item xs={12} sm={12} md={4}>
-                <Typography variant="h5" color="#323439">
-                       Correct Sentence
+              {suggestedWords.length>0&&  <Grid item xs={12} sm={12} md={4}>
+               <Typography variant="h5" color="#323439">
+                       Correct Text
                     </Typography>
-                {suggestedWords.map((word) => (
+                    {suggestedWords.map((word) => (
                             <Button
                                 key={word}
                                 variant="contained"
@@ -139,15 +256,9 @@ const SentenceCorrection = () => {
                                 {word}
                             </Button>
                         ))}
-                    
-                    </Grid>
-                        {(suggestedWords.length === 0) &&
-                    <Grid item xs={12} sm={12} md={4} direction="rtl">
-                            <Typography variant="h4" sx={{ mb: 5 }} color="primary">
-                                No Suggested Words
-                            </Typography>
-                    </Grid>
-                        }
+                   
+                    </Grid>}
+                     
 
                     <Grid item xs={12} sm={12} md={8}>
                         <TextField
@@ -164,8 +275,10 @@ const SentenceCorrection = () => {
                             }}
                             fullWidth
                             onChange={handleTextChange}
+                            onKeyPress={(e) => handleKeyPress(e)}
                         // Additional TextField props as needed
                         />
+                         {loader&&<LinearProgress color="inherit" />}
                         <StatusBar text={urduText} /> 
                     </Grid>
                  

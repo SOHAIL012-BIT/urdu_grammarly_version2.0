@@ -46,11 +46,15 @@ export default function LoginForm() {
         localStorage.setItem('userData', stateString);
         navigate("/dashboard");
       } else {
+           // eslint-disable-next-line no-debugger
+    debugger
         toaster("Invalid Credential or Something went wrong", "error")
       }
     })
       .catch(error => {
-        toaster("Something went wrong", "error")
+        // console.log("Error is",error)
+        // toaster("Something went wrong", "error")
+        toaster("Invalid Credential or Something went wrong", "error")
       })
   }
 

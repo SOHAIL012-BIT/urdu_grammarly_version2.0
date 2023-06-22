@@ -58,7 +58,7 @@ export default function DashboardAppPage() {
           </Grid>
 
           <Grid item xs={12} sm={12} md={6} id="SentenceCorrection" data-divId="SentenceCorrection" onClick={handleCardClick}>
-            <AppWidgetSummary title="Sentence Correction"
+            <AppWidgetSummary title="Text Correction"
               subtitle="Bye to spelling mistakes with our Correction Checker! Advanced technology for error-free text, elevating your writing game."
               urduTrans="اپنے اشتباہیں درست کرنے کے ساتھ خداحافظ کہیں ہمارے اصلاح چیکر کے ساتھ! انتہائی ترقی یافتہ ٹیکنالوجی کے ذریعہ آپ کے مواد کو سکین کرنے اور صحیح املا کی تجویز کرنے دیں. تیار رہیں کہ آپ کا لکھائی کو باضابطہ بنائیں اور غلطیوں سے پاک مواد کے ساتھ باقاعدہ اثر انداز کریں."
               color="info"
