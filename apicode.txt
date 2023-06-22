@@ -32,6 +32,6 @@
       .catch(function (error) {
         //////console.log(error)
         setDSRListData([])
-        toaster("Something went wrong", "error")
+        // toaster("Something went wrong", "error")
       })
   }

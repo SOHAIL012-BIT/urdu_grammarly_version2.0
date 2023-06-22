@@ -69,7 +69,7 @@ const GrammarChecking = () => {
           // eslint-disable-next-line no-debugger
           debugger
           console.log("Error is", error)
-          // toaster("Something went wrong", "error")
+          // // toaster("Something went wrong", "error")
           const data = Math.random() * 0.5;
           setProbablity(data);
           setLoader(false)

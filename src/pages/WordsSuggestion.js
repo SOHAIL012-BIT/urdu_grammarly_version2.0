@@ -89,7 +89,7 @@ const WordsSuggestion = () => {
         // eslint-disable-next-line no-debugger
         debugger
         console.log("Error is", error)
-        toaster("Something went wrong", "error")
+        // toaster("Something went wrong", "error")
         setLoader(false)
       })
     }

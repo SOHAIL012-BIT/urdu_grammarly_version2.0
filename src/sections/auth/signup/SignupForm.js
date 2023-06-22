@@ -44,7 +44,7 @@
 //   //           }
 //   //         })
 //   //         .catch(error => {
-//   //            toaster("Something went wrong", "error")
+//   //            // toaster("Something went wrong", "error")
 //   //         })
 //   //   }
 
@@ -75,7 +75,7 @@
 //       }
 //     })
 //     .catch(error =>{
-//       toaster("Something went wrong", "error")
+//       // toaster("Something went wrong", "error")
 //     });
 //   };
 

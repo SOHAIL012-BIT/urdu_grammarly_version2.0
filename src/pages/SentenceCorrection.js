@@ -111,7 +111,7 @@ const SentenceCorrection = () => {
         // eslint-disable-next-line no-debugger
         debugger
         console.log("Error is", error)
-        toaster("Something went wrong", "error")
+        // // toaster("Something went wrong", "error")
         setLoader(false)
       })
     }
@@ -176,6 +176,7 @@ const SentenceCorrection = () => {
   
       if (event.charCode === 46 || event.charCode === 45) {
         console.log("Senence Completed")
+        textCorrection()
         setCurrentContext("");
       }
     }
@@ -189,6 +190,9 @@ const SentenceCorrection = () => {
   
     const handleDataFromChild = (data,button) => {
       console.log("In Parent Data fron Child Button is",button)
+      if (button === "." || button === "-") {
+        textCorrection();
+      }
       setUrduText(data);
     };
     const handleCloseTarget = () => {

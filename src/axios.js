@@ -18,12 +18,12 @@ const axiosInstance = axios.create({
       console.log("Configuration is ",config.url)
       // eslint-disable-next-line no-debugger
       debugger
-      if (localStorage !== null) {
+      // if (localStorage !== null) {
       config.headers = { 
         // 'Authorization': `Bearer ${localStorage.token}`,
         "Content-Type": "application/json",
       }
-      }
+      // }
       return config;
     },
     (error) => {
