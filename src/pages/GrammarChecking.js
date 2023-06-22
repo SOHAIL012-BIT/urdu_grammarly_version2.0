@@ -7,9 +7,9 @@ import { Grid, Container, Typography, TextField, Button, Stack, Tooltip } from '
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
-
+import LinearProgress from '@mui/material/LinearProgress';
 import { AppConversionRates } from '../sections/@dashboard/app';
-import Scrollbar from '../components/scrollbar';
+
 
 import OnScreenKeyboard from '../components/onScreenKeyboard/OnScreenKeyboard';
 
@@ -51,9 +51,6 @@ const GrammarChecking = () => {
         if (data.isSuccess === true) {
           // eslint-disable-next-line no-debugger
           debugger
-          // console.log("Data is", data)
-          // data.grammar_result += Math.random() * 0.5;
-          // setProbablity(data.grammar_result);
           console.log("Data is", data);
           data.grammar_result += Math.random() * 0.3 + 0.5; // Adds a random number between 0.5 and 0.8
           if (data.grammar_result > 0.82) {
@@ -63,18 +60,6 @@ const GrammarChecking = () => {
 
           setLoader(false)
         }
-        // else if (data.error.includes("is not in list")){
-        //   // urduText
-        //   const regex = /'([^']+)'/;
-        //   const match = regex.exec(data.error);
-        //   if (match && match[1]) {
-        //     const errorWord = match[1];
-        //     console.log(`API error: ${errorWord}`);
-        //     const updatedText = urduText.replace(errorWord, '');
-        //     // Update the state with the updated text
-        //     setUrduText(updatedText);
-        //   }
-        // }
         else {
           toaster(data.message, "error")
           setLoader(false)
@@ -209,37 +194,10 @@ const GrammarChecking = () => {
               onKeyPress={(e) => handleKeyPress(e)}
             // Additional TextField props as needed
             />
+            {loader&&<LinearProgress color="inherit" />}
             <StatusBar text={urduText} />
           </Grid>
         </Grid>
-        {/* <Grid container spacing={3} alignItems="center" justifyContent="center" style={{
-          marginTop: "2px"
-        }}>
-          <Tooltip title="گرامر چیک کریں" arrow>
-            <Button
-              variant="contained"
-              color="primary"
-              size="medium"
-              style={{
-                margin: "3px 10px 3px 10px",
-                direction: 'rtl', // Set text direction to right-to-left
-                textAlign: 'right', // Set text alignment to right
-                fontFamily: 'Nastaliq',
-                fontSize: "16pt",
-                // backgroundColor:"#bbbdc4",
-                // color:"#323439",
-                color: "ffffff",
-                backgroundColor: "#323439",
-              }}
-
-              onClick={() => handleButtonClick()}
-            >
-              Check Grammar
-            </Button>
-          </Tooltip>
-
-
-        </Grid> */}
         <Grid container spacing={3} alignItems="center" justifyContent="center" style={{
           marginTop: "2px"
         }}>

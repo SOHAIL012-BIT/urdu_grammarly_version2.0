@@ -41,7 +41,7 @@ const urduWords = [
 
 const WordsSuggestion = () => {
   const [urduText, setUrduText] = useState('');
-  const [suggestedWords, setSuggestedWords] = useState(urduWords)
+  const [suggestedWords, setSuggestedWords] = useState([])
   const theme = useTheme();
   const [loader, setLoader] = useState(false);
   const [shouldOpenDialog, setShouldOpenDialog] = useState(false);

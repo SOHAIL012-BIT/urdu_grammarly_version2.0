@@ -31,7 +31,8 @@ const SentenceCorrection = () => {
   const [loader, setLoader] = useState(false);
   const [shouldOpenDialog, setShouldOpenDialog] = useState(false);
   const [currentContext, setCurrentContext] = useState("");
-  const [isSpace, setIsSpace] = useState(false)
+  const [isSpace, setIsSpace] = useState(false);
+  const [incorrectText,setIncorrectText]=useState("");
   const [resultsProbablity,setResultsProbability]=useState({
     correctProbability: 0,
     incorrectProbability: 0
@@ -65,6 +66,7 @@ const SentenceCorrection = () => {
     console.log("lastArr",lastArr)
     if (lastElement.trim() !== '' && lastArr.length >= 2) {
       setLoader(true)
+      setIncorrectText(lastElement)
           // eslint-disable-next-line no-debugger
       debugger;
       wordCorrection(lastElement).then(({ data }) => {
@@ -156,7 +158,9 @@ const SentenceCorrection = () => {
 
     const handleButtonClick = (word) => {
         // setUrduText(urduText + ' ' + word); // Append clicked word to current urduText
-        setUrduText(`${urduText}  ${word}`);
+        // setUrduText(`${urduText}  ${word}`);
+
+        setUrduText(urduText.replace(incorrectText, word));
     };
     
 

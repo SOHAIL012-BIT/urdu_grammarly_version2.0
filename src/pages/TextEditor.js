@@ -4,7 +4,7 @@ import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography, Divider, TextField, Button, Stack, Tooltip } from '@mui/material';
-
+import LinearProgress from '@mui/material/LinearProgress';
 // import Box from '@mui/material/Box';
 // import Keyboard from 'react-simple-keyboard';
 
@@ -40,6 +40,7 @@ const TextEditor = () => {
   const [isSpace, setIsSpace] = useState(false)
   const [probablity, setProbablity] = useState(0)
   const [loader, setLoader] = useState(false);
+  const [incorrectText,setIncorrectText]=useState("");
   const [resultsProbablity, setResultsProbability] = useState({
     correctProbability: 100,
     incorrectProbability: 0
@@ -81,6 +82,7 @@ const TextEditor = () => {
         if (data.message === "Words List Fected Successfully") {
           // eslint-disable-next-line no-debugger
           debugger
+          console.log("Word Suggestion",data)
           setSuggestedWords(data.result)
           console.log("Data is", data)
           setLoader(false)
@@ -171,6 +173,7 @@ const TextEditor = () => {
     console.log("lastArr", lastArr)
     if (lastElement.trim() !== '' && lastArr.length >= 2) {
       setLoader(true)
+      setIncorrectText(lastElement)
       // eslint-disable-next-line no-debugger
       debugger;
       wordCorrection(lastElement).then(({ data }) => {
@@ -179,6 +182,7 @@ const TextEditor = () => {
         if (data.message === "Text Corrected") {
           // eslint-disable-next-line no-debugger
           debugger
+          console.log("Word Correction",data)
           setCorrectText([data.cor_result_jaccard])
           console.log("Data is", data)
 
@@ -235,6 +239,13 @@ const TextEditor = () => {
   const handleButtonClick = (word) => {
     setUrduText(`${urduText}  ${word}`);
   };
+
+
+
+  const handleCorrectionButtonClick = (word) => {
+    setUrduText(urduText.replace(incorrectText, word));
+  };
+
   const handleTextChange = (event) => {
     setUrduText(event.target.value);
   };
@@ -357,7 +368,7 @@ const TextEditor = () => {
 
         <Grid container spacing={3} alignItems="center" justifyContent="center">
 
-          {suggestedWords.length > 0||correctText.length>0 && <Grid item xs={12} sm={12} md={4}>
+         <Grid item xs={12} sm={12} md={4}>
             {suggestedWords.length > 0&&<><Typography variant="h5" color="#323439">
               Suggested Words
             </Typography>
@@ -412,12 +423,12 @@ const TextEditor = () => {
                   backgroundColor: "#323439",
                 }}
 
-                onClick={() => handleButtonClick(word)}
+                onClick={() => handleCorrectionButtonClick(word)}
               >
                 {word}
               </Button>
             ))}</>}
-          </Grid>}
+          </Grid>
 
           <Grid item xs={12} sm={12} md={8}>
             <TextField
@@ -437,6 +448,7 @@ const TextEditor = () => {
               onKeyPress={(e) => handleKeyPress(e)}
             // Additional TextField props as needed
             />
+            {loader&&<LinearProgress color="inherit" />}
             <StatusBar text={urduText} />
           </Grid>
         </Grid>
