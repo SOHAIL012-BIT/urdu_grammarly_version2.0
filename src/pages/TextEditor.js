@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Grid, Container, Typography, TextField, Button, Stack, Tooltip } from '@mui/material';
+import { Grid, Container, Typography, Divider, TextField, Button, Stack, Tooltip } from '@mui/material';
 
 // import Box from '@mui/material/Box';
 // import Keyboard from 'react-simple-keyboard';
@@ -11,7 +11,7 @@ import { Grid, Container, Typography, TextField, Button, Stack, Tooltip } from '
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
-import { AppConversionRates,} from '../sections/@dashboard/app';
+import { AppConversionRates, } from '../sections/@dashboard/app';
 
 
 // components
@@ -20,28 +20,30 @@ import OnScreenKeyboard from '../components/onScreenKeyboard/OnScreenKeyboard';
 
 import { toaster } from '../utils/toaster';
 // Files functions
-import  {saveDocAsFile,savePdfAsFile,copytoClipBoard,StatusBar} from "../utils/filesexport"
-import { wordSuggestion,grammarCheck } from '../services/applicationServices'
+import { saveDocAsFile, savePdfAsFile, copytoClipBoard, StatusBar } from "../utils/filesexport"
+import { wordSuggestion, grammarCheck, wordCorrection } from '../services/applicationServices'
 
 
-const urduSentence = [
-  '.ہمارے اے آئی پاورڈ جملوں اور الفاظ کی تجویز کرنے والے ٹول کے ساتھ اپنی لکھائی کی صلاحیت کو کھولیں.',
-];
-const urduWords = ['سلام', 'خوش آمدید', 'شکریہ', 'معاف کیجیے', 'بہترین', 'کامیابی', 'پیار', 'خوبصورت', 'خوشگوار'];
-// const urduWords = []
+// const urduSentence = [
+//   '.ہمارے اے آئی پاورڈ جملوں اور الفاظ کی تجویز کرنے والے ٹول کے ساتھ اپنی لکھائی کی صلاحیت کو کھولیں.',
+// ];
+// const urduWords = ['سلام', 'خوش آمدید', 'شکریہ', 'معاف کیجیے', 'بہترین', 'کامیابی', 'پیار', 'خوبصورت', 'خوشگوار'];
+//  const urduWords = []
 
 const TextEditor = () => {
   const theme = useTheme();
   const [shouldOpenDialog, setShouldOpenDialog] = useState(false);
   const [urduText, setUrduText] = useState('');
-  const [suggestedWords, setSuggestedWords] = useState(urduWords);
-  const [correctSentence, setCorrectSentence] = useState(urduSentence);
+  const [suggestedWords, setSuggestedWords] = useState([]);
+  const [correctText, setCorrectText] = useState([]);
   const [endOfSentence, setEndOfSentence] = useState(false);
   const [isSpace, setIsSpace] = useState(false)
   const [probablity, setProbablity] = useState(0)
   const [loader, setLoader] = useState(false);
-
-
+  const [resultsProbablity, setResultsProbability] = useState({
+    correctProbability: 100,
+    incorrectProbability: 0
+  });
 
 
 
@@ -71,30 +73,30 @@ const TextEditor = () => {
     const lastElement = arr[lastIndex];
 
     if (lastElement.trim() !== '') {
-          // eslint-disable-next-line no-debugger
+      // eslint-disable-next-line no-debugger
       debugger;
       wordSuggestion(lastElement).then(({ data }) => {
-      // eslint-disable-next-line no-debugger
-      debugger
-      if (data.message === "Words List Fected Successfully") {
         // eslint-disable-next-line no-debugger
         debugger
-        setSuggestedWords(data.result)
-        console.log("Data is", data)
-        setLoader(false)
-        setIsSpace(false)
-      } else {
-        toaster(data.message, "error")
-        setLoader(false)
-      }
-    })
-      .catch(error => {
-        // eslint-disable-next-line no-debugger
-        debugger
-        console.log("Error is", error)
-        toaster("Something went wrong", "error")
-        setLoader(false)
+        if (data.message === "Words List Fected Successfully") {
+          // eslint-disable-next-line no-debugger
+          debugger
+          setSuggestedWords(data.result)
+          console.log("Data is", data)
+          setLoader(false)
+          setIsSpace(false)
+        } else {
+          toaster(data.message, "error")
+          setLoader(false)
+        }
       })
+        .catch(error => {
+          // eslint-disable-next-line no-debugger
+          debugger
+          console.log("Error is", error)
+          toaster("Something went wrong", "error")
+          setLoader(false)
+        })
     }
   }
 
@@ -146,6 +148,79 @@ const TextEditor = () => {
 
 
 
+  const textCorrection = () => {
+
+    let arr;
+
+    if (urduText.includes("-") || urduText.includes(".")) {
+      arr = urduText.split(/[-.]/);
+    } else {
+      arr = [urduText];
+    }
+
+    const lastIndex = arr.length - 1;
+    // eslint-disable-next-line no-debugger
+    debugger;
+
+    let lastArr;
+    const lastElement = arr[lastIndex];
+    if (lastElement.includes(" ")) {
+      lastArr = urduText.split(" ").filter(word => word !== "");
+    }
+
+    console.log("lastArr", lastArr)
+    if (lastElement.trim() !== '' && lastArr.length >= 2) {
+      setLoader(true)
+      // eslint-disable-next-line no-debugger
+      debugger;
+      wordCorrection(lastElement).then(({ data }) => {
+        // eslint-disable-next-line no-debugger
+        debugger
+        if (data.message === "Text Corrected") {
+          // eslint-disable-next-line no-debugger
+          debugger
+          setCorrectText([data.cor_result_jaccard])
+          console.log("Data is", data)
+
+          const inputCorrectCount = (data.input_Incorrect === 0 && data.input_Correct === 0) ? lastArr.length : data.input_Correct
+          const totalInputs = inputCorrectCount + data.input_Incorrect;
+          if (totalInputs > 0) {
+            const correctProb = (inputCorrectCount / totalInputs) * 100;
+            const incorrectProb = (data.input_Incorrect / totalInputs) * 100;
+
+            setResultsProbability({
+              correctProbability: correctProb,
+              incorrectProbability: incorrectProb
+            });
+          }
+
+
+          setLoader(false)
+          setIsSpace(false)
+        } else if (data.message === "No Incorrect Words") {
+          // eslint-disable-next-line no-debugger
+          debugger
+          setCorrectText([])
+          setLoader(false)
+          setIsSpace(false)
+        } else {
+          toaster(data.message, "error")
+          setLoader(false)
+        }
+      })
+        .catch(error => {
+          // eslint-disable-next-line no-debugger
+          debugger
+          console.log("Error is", error)
+          toaster("Something went wrong", "error")
+          setLoader(false)
+          setCorrectText([])
+        })
+    }
+  }
+
+
+
 
 
 
@@ -164,7 +239,7 @@ const TextEditor = () => {
     setUrduText(event.target.value);
   };
 
-  
+
   const handleDataFromChild = (data, button) => {
     console.log("In Parent Data fron Child Button is", button)
     if (button === "{space}" || button === "{tab}") {
@@ -193,9 +268,9 @@ const TextEditor = () => {
       grammarErrorCheck();
     }
   }
- 
+
   const handleCloseTarget = () => {
-  
+
     setShouldOpenDialog(false);
   };
   console.log('Urdu Text is', urduText.length);
@@ -207,7 +282,7 @@ const TextEditor = () => {
     if (actionName === 'Copy To clipboard') {
       copytoClipBoard(urduText)
     } else if (actionName === 'Open Keyboard') {
-        setUrduText(`${urduText} `);
+      setUrduText(`${urduText} `);
       setShouldOpenDialog(true);
     }
 
@@ -235,7 +310,8 @@ const TextEditor = () => {
     if (words.length > 0 && isSpace) {
       // callFunction();
       console.log("Word is ", words[words.length - 1])
-      wordSuggestions()
+      wordSuggestions();
+      textCorrection();
     }
 
 
@@ -280,45 +356,68 @@ const TextEditor = () => {
         </Stack>
 
         <Grid container spacing={3} alignItems="center" justifyContent="center">
-          
-            <Grid item xs={12} sm={12} md={4}>
-              <Typography variant="h5" color="#323439">
-                Suggested Words
-              </Typography>
-              {suggestedWords.map((word) => (
-                <Button
-                  key={word}
-                  variant="contained"
-                  color="primary"
-                  size="medium"
-                  style={{
-                    margin: '3px 10px 10px 10px',
-                    direction: 'rtl', // Set text direction to right-to-left
-                    textAlign: 'right', // Set text alignment to right
-                    fontFamily: 'Noto Nastaliq Urdu',
-                    letterSpacing: '0.08rem',
-                    // fontFamily: 'Noto Naskh Arabic',
-                    fontSize: '16pt',
-                    // backgroundColor:"#bbbdc4",
-                    // color:"#323439",
-                    color: 'ffffff',
-                    backgroundColor: '#323439',
-                  }}
-                  onClick={() => handleButtonClick(word)}
-                >
-                  {word}
-                </Button>
-              ))}
-            </Grid>
-          
 
-          {suggestedWords.length === 0 && (
-            <Grid item xs={12} sm={12} md={4} direction="rtl">
-              <Typography variant="h4" sx={{ mb: 5 }} color="primary">
-                No Suggested Words
-              </Typography>
-            </Grid>
-          )}
+          {suggestedWords.length > 0||correctText.length>0 && <Grid item xs={12} sm={12} md={4}>
+            {suggestedWords.length > 0&&<><Typography variant="h5" color="#323439">
+              Suggested Words
+            </Typography>
+            {suggestedWords.map((word) => (
+              <Button
+                key={word}
+                variant="contained"
+                color="primary"
+                size="medium"
+                style={{
+                  margin: "3px 10px 10px 10px",
+                  direction: 'rtl', // Set text direction to right-to-left
+                  textAlign: 'right', // Set text alignment to right
+                  fontFamily: 'Noto Nastaliq Urdu',
+                  letterSpacing: '0.08rem',
+                  // fontFamily: 'Noto Naskh Arabic',
+                  fontSize: "16pt",
+                  // backgroundColor:"#bbbdc4",
+                  // color:"#323439",
+                  color: "ffffff",
+                  backgroundColor: "#323439",
+                }}
+
+                onClick={() => handleButtonClick(word)}
+              >
+                {word}
+              </Button>
+            ))}</>}
+
+            <Divider />
+
+           {correctText.length > 0&&<> <Typography variant="h5" color="#323439">
+              Correct text
+            </Typography>
+            {correctText.map((word) => (
+              <Button
+                key={word}
+                variant="contained"
+                color="primary"
+                size="medium"
+                style={{
+                  margin: "3px 10px 10px 10px",
+                  direction: 'rtl', // Set text direction to right-to-left
+                  textAlign: 'right', // Set text alignment to right
+                  fontFamily: 'Noto Nastaliq Urdu',
+                  letterSpacing: '0.08rem',
+                  // fontFamily: 'Noto Naskh Arabic',
+                  fontSize: "16pt",
+                  // backgroundColor:"#bbbdc4",
+                  // color:"#323439",
+                  color: "ffffff",
+                  backgroundColor: "#323439",
+                }}
+
+                onClick={() => handleButtonClick(word)}
+              >
+                {word}
+              </Button>
+            ))}</>}
+          </Grid>}
 
           <Grid item xs={12} sm={12} md={8}>
             <TextField
@@ -336,9 +435,9 @@ const TextEditor = () => {
               fullWidth
               onChange={handleTextChange}
               onKeyPress={(e) => handleKeyPress(e)}
-              // Additional TextField props as needed
+            // Additional TextField props as needed
             />
-             <StatusBar text={urduText} />
+            <StatusBar text={urduText} />
           </Grid>
         </Grid>
 
@@ -355,8 +454,8 @@ const TextEditor = () => {
             <AppConversionRates
               title="Sentence Correction Probablity"
               chartData={[
-                { label: 'Correct', value: 60 },
-                { label: 'Incorrect', value: 40 },
+                { label: 'Correct', value: resultsProbablity.correctProbability },
+                { label: 'Incorrect', value: resultsProbablity.incorrectProbability },
               ]}
               chartColors={[theme.palette.primary.main, theme.palette.info.main]}
             />
@@ -397,7 +496,7 @@ const TextEditor = () => {
             zIndex: 1000,
           }}
           icon={<SpeedDialIcon />}
-          // onClick={(event) => handleSpeedDialClick(event, action.name)}
+        // onClick={(event) => handleSpeedDialClick(event, action.name)}
         >
           {actions.map((action) => (
             <SpeedDialAction

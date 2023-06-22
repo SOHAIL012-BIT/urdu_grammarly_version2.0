@@ -32,15 +32,18 @@ const SentenceCorrection = () => {
   const [shouldOpenDialog, setShouldOpenDialog] = useState(false);
   const [currentContext, setCurrentContext] = useState("");
   const [isSpace, setIsSpace] = useState(false)
-  const [resultsCount,setResultCount]=useState();
-  
+  const [resultsProbablity,setResultsProbability]=useState({
+    correctProbability: 0,
+    incorrectProbability: 0
+  });
+
 
 
 
 
 
   const textCorrection = () => {
-    setLoader(true)
+    
     let arr;
 
     if (urduText.includes("-") || urduText.includes(".")) {
@@ -56,11 +59,12 @@ const SentenceCorrection = () => {
     let lastArr;
     const lastElement = arr[lastIndex];
     if (lastElement.includes(" ")) {
-      lastArr = urduText.split(/[" "]/);
+      lastArr = urduText.split(" ").filter(word => word !== "");
     }
-
+    
     console.log("lastArr",lastArr)
-    if (lastElement.trim() !== '' && lastArr.length > 2) {
+    if (lastElement.trim() !== '' && lastArr.length >= 2) {
+      setLoader(true)
           // eslint-disable-next-line no-debugger
       debugger;
       wordCorrection(lastElement).then(({ data }) => {
@@ -71,6 +75,23 @@ const SentenceCorrection = () => {
         debugger
         setSuggestedWords([data.cor_result_jaccard])
         console.log("Data is", data)
+
+        const inputCorrectCount=(data.input_Incorrect===0&&data.input_Correct===0)?lastArr.length:data.input_Correct
+        const totalInputs = inputCorrectCount + data.input_Incorrect;
+        if (totalInputs > 0) {
+          const correctProb = (inputCorrectCount / totalInputs) * 100;
+          const incorrectProb = (data.input_Incorrect / totalInputs) * 100;
+    
+          setResultsProbability({
+            correctProbability: correctProb,
+            incorrectProbability: incorrectProb
+          });
+        }
+
+
+
+
+
         setLoader(false)
         setIsSpace(false)
       } else if (data.message === "No Incorrect Words") {
@@ -338,8 +359,8 @@ const SentenceCorrection = () => {
                         <AppConversionRates
                             title="Probablity"
                             chartData={[
-                                { label: 'Correct', value: 60 },
-                                { label: 'Incorrect', value: 40 },
+                                { label: 'Correct', value: resultsProbablity.correctProbability },
+                                { label: 'Incorrect', value: resultsProbablity.incorrectProbability },
                             ]}
                             chartColors={[
                                 theme.palette.primary.main,
